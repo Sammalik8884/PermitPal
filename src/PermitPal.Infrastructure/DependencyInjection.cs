@@ -69,7 +69,7 @@ public static class DependencyInjection
             client.DefaultRequestHeaders.Add("User-Agent", "PermitPal/1.0");
         });
 
-        // AWS S3 Client for Cloudflare R2
+        // AWS S3 / Cloudflare R2 Storage
         var r2AccessKey = configuration["Storage:R2:AccessKeyId"];
         if (string.IsNullOrEmpty(r2AccessKey) || r2AccessKey.Contains("your-r2-access-key-id"))
         {
@@ -81,20 +81,30 @@ public static class DependencyInjection
             services.AddSingleton<IAmazonS3>(sp =>
             {
                 var config = sp.GetRequiredService<IConfiguration>();
-                var endpoint = config["Storage:R2:AccountId"] != null 
-                    ? $"https://{config["Storage:R2:AccountId"]}.r2.cloudflarestorage.com"
-                    : config["Storage:Endpoint"] ?? "";
-                
+                var accountId = config["Storage:R2:AccountId"];
                 var accessKey = r2AccessKey;
                 var secretKey = config["Storage:R2:SecretAccessKey"] ?? config["Storage:SecretKey"] ?? "";
+                var region = config["Storage:R2:Region"] ?? "us-east-1";
 
-                var s3Config = new AmazonS3Config
+                if (!string.IsNullOrEmpty(accountId))
                 {
-                    ServiceURL = endpoint,
-                    ForcePathStyle = true
-                };
-
-                return new AmazonS3Client(accessKey, secretKey, s3Config);
+                    // Cloudflare R2 mode — custom endpoint
+                    var s3Config = new AmazonS3Config
+                    {
+                        ServiceURL = $"https://{accountId}.r2.cloudflarestorage.com",
+                        ForcePathStyle = true
+                    };
+                    return new AmazonS3Client(accessKey, secretKey, s3Config);
+                }
+                else
+                {
+                    // Standard AWS S3 mode
+                    var s3Config = new AmazonS3Config
+                    {
+                        RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(region)
+                    };
+                    return new AmazonS3Client(accessKey, secretKey, s3Config);
+                }
             });
 
             services.AddScoped<IStorageService, StorageService>();

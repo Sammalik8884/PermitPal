@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using PermitPal.Application.Interfaces;
 using System.IO;
@@ -7,12 +8,14 @@ namespace PermitPal.Infrastructure.Services;
 public class LocalFileStorageService : IStorageService
 {
     private readonly string _uploadPath;
-    private readonly string _publicUrl;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly string? _configuredPublicUrl;
 
-    public LocalFileStorageService(IConfiguration config)
+    public LocalFileStorageService(IConfiguration config, IHttpContextAccessor httpContextAccessor)
     {
         _uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-        _publicUrl = config["Storage:PublicUrl"] ?? "http://localhost:5000/uploads";
+        _configuredPublicUrl = config["Storage:PublicUrl"];
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<string> UploadAsync(Stream fileStream, string fileName, string contentType, string folder)
@@ -31,7 +34,23 @@ public class LocalFileStorageService : IStorageService
 
     public Task<string> GetPresignedUrlAsync(string fileUrl, int expiryMinutes = 15)
     {
-        return Task.FromResult($"{_publicUrl.TrimEnd('/')}/{fileUrl}");
+        var request = _httpContextAccessor.HttpContext?.Request;
+        string baseUrl;
+        
+        if (!string.IsNullOrEmpty(_configuredPublicUrl))
+        {
+            baseUrl = _configuredPublicUrl;
+        }
+        else if (request != null)
+        {
+            baseUrl = $"{request.Scheme}://{request.Host}/uploads";
+        }
+        else
+        {
+            baseUrl = "http://localhost:5000/uploads";
+        }
+
+        return Task.FromResult($"{baseUrl.TrimEnd('/')}/{fileUrl}");
     }
 
     public Task DeleteAsync(string fileUrl)
