@@ -1,0 +1,394 @@
+
+<h2 class="sr-only">HealthDesk ideal customer profile and first 10 clinic acquisition playbook</h2>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1.5rem 0;font-family:var(--font-sans)}
+.nav{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:1.25rem}
+.ntab{font-size:12px;padding:5px 14px;border-radius:20px;border:0.5px solid var(--color-border-secondary);color:var(--color-text-secondary);cursor:pointer;background:var(--color-background-primary)}
+.ntab.on{background:#E6F1FB;color:#0C447C;border-color:#85B7EB;font-weight:500}
+.sec{display:none}.sec.on{display:block}
+.icp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin-bottom:1.25rem}
+.icp-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+.icp-head{padding:12px 16px;display:flex;align-items:center;gap:10px}
+.icp-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;font-weight:500}
+.icp-name{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.icp-role{font-size:11px;color:var(--color-text-secondary)}
+.icp-body{padding:0 16px 14px}
+.trait-row{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-top:0.5px solid var(--color-border-tertiary)}
+.trait-row:first-child{border-top:none}
+.trait-label{font-size:11px;color:var(--color-text-tertiary);min-width:80px;padding-top:1px}
+.trait-val{font-size:12px;color:var(--color-text-primary);flex:1;line-height:1.4}
+.pain-pill{font-size:10px;padding:2px 8px;border-radius:20px;background:#FCEBEB;color:#A32D2D;display:inline-block;margin:2px 2px 0 0}
+.good-pill{font-size:10px;padding:2px 8px;border-radius:20px;background:#E1F5EE;color:#085041;display:inline-block;margin:2px 2px 0 0}
+.score-bar{height:5px;border-radius:3px;background:var(--color-background-secondary);margin-top:4px;overflow:hidden}
+.score-fill{height:100%;border-radius:3px;background:#1D9E75}
+.bad-fit{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 14px;margin-bottom:8px}
+.bad-title{font-size:13px;font-weight:500;color:var(--color-text-primary);display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.bad-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.step-list{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:12px;padding:12px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.step:last-child{border-bottom:none}
+.step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;margin-top:1px}
+.step-content{flex:1}
+.step-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.step-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.step-tip{font-size:11px;color:#0C447C;background:#E6F1FB;padding:4px 10px;border-radius:var(--border-radius-md);display:inline-block;margin-top:5px}
+.tracker-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.prospect{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 14px}
+.prospect-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.prospect-num{font-size:11px;font-weight:500;color:#185FA5;background:#E6F1FB;padding:2px 8px;border-radius:20px}
+.prospect-type{font-size:11px;color:var(--color-text-tertiary)}
+.prospect-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.prospect-where{font-size:12px;color:var(--color-text-secondary);margin-bottom:8px}
+.prospect-actions{display:flex;flex-direction:column;gap:4px}
+.action-item{font-size:11px;color:var(--color-text-secondary);display:flex;align-items:flex-start;gap:5px}
+.action-item i{color:#1D9E75;font-size:13px;flex-shrink:0;margin-top:1px}
+.msg-card{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:12px}
+.msg-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
+.msg-text{font-size:13px;color:var(--color-text-primary);line-height:1.6;white-space:pre-line}
+.msg-note{font-size:11px;color:#854F0B;background:#FAEEDA;padding:4px 10px;border-radius:var(--border-radius-md);margin-top:8px;display:inline-block}
+.channel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.channel{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 12px}
+.ch-head{font-size:13px;font-weight:500;color:var(--color-text-primary);display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.ch-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.4}
+.ch-effort{font-size:10px;padding:1px 7px;border-radius:20px;display:inline-block;margin-top:5px}
+.deep-btn{font-size:12px;padding:6px 14px;margin-top:1.25rem}
+</style>
+
+<div class="wrap">
+  <div class="nav" id="nav">
+    <div class="ntab on" data-s="icp">Ideal customer profiles</div>
+    <div class="ntab" data-s="bad">Bad fits to avoid</div>
+    <div class="ntab" data-s="playbook">10-clinic playbook</div>
+    <div class="ntab" data-s="outreach">Outreach messages</div>
+    <div class="ntab" data-s="channels">Where to find them</div>
+  </div>
+
+  <div class="sec on" id="s-icp">
+    <div class="icp-grid">
+
+      <div class="icp-card">
+        <div class="icp-head">
+          <div class="icp-avatar" style="background:#E6F1FB;color:#0C447C">SL</div>
+          <div>
+            <div class="icp-name">Sarah L. — Solo Physio</div>
+            <div class="icp-role">Physiotherapist · 1 person · Sydney</div>
+          </div>
+        </div>
+        <div class="icp-body">
+          <div class="trait-row"><span class="trait-label">Practice</span><span class="trait-val">Rents a room at a shared clinic, 30–40 patients/week</span></div>
+          <div class="trait-row"><span class="trait-label">Current tool</span><span class="trait-val">Cliniko or spreadsheets — paying $79+/mo for features she doesn't use</span></div>
+          <div class="trait-row"><span class="trait-label">Pains</span><span class="trait-val">
+            <span class="pain-pill">Medicare claims take 45 min/week</span>
+            <span class="pain-pill">No-shows with no reminders</span>
+            <span class="pain-pill">Notes and billing in separate tools</span>
+          </span></div>
+          <div class="trait-row"><span class="trait-label">Goals</span><span class="trait-val">Save 4h/week on admin; get paid faster; stay AHPRA compliant</span></div>
+          <div class="trait-row"><span class="trait-label">Budget fit</span><span class="trait-val">Solo plan $49/mo — saves money vs Cliniko</span></div>
+          <div class="trait-row"><span class="trait-label">Fit score</span><span class="trait-val">
+            <div style="font-size:11px;color:#0F6E56;font-weight:500">95% — perfect ICP</div>
+            <div class="score-bar"><div class="score-fill" style="width:95%"></div></div>
+          </span></div>
+        </div>
+      </div>
+
+      <div class="icp-card">
+        <div class="icp-head">
+          <div class="icp-avatar" style="background:#E1F5EE;color:#085041">MK</div>
+          <div>
+            <div class="icp-name">Marcus K. — OT Practice Owner</div>
+            <div class="icp-role">Occupational Therapist · 3 practitioners · Melbourne</div>
+          </div>
+        </div>
+        <div class="icp-body">
+          <div class="trait-row"><span class="trait-label">Practice</span><span class="trait-val">Paediatric OT clinic; 2 OTs + 1 speech path; heavy NDIS caseload</span></div>
+          <div class="trait-row"><span class="trait-label">Current tool</span><span class="trait-val">Power Diary at $149/mo — no NDIS billing; manual CSV exports</span></div>
+          <div class="trait-row"><span class="trait-label">Pains</span><span class="trait-val">
+            <span class="pain-pill">NDIS CSV prep takes 6h/month</span>
+            <span class="pain-pill">Budget tracking is a spreadsheet</span>
+            <span class="pain-pill">Service agreements unsigned for weeks</span>
+          </span></div>
+          <div class="trait-row"><span class="trait-label">Goals</span><span class="trait-val">Automate NDIS claiming; track participant budgets in real time; grow to 5 clinicians</span></div>
+          <div class="trait-row"><span class="trait-label">Budget fit</span><span class="trait-val">Clinic plan $149/mo — same price, 10x better NDIS support</span></div>
+          <div class="trait-row"><span class="trait-label">Fit score</span><span class="trait-val">
+            <div style="font-size:11px;color:#0F6E56;font-weight:500">98% — highest value ICP</div>
+            <div class="score-bar"><div class="score-fill" style="width:98%"></div></div>
+          </span></div>
+        </div>
+      </div>
+
+      <div class="icp-card">
+        <div class="icp-head">
+          <div class="icp-avatar" style="background:#FAEEDA;color:#633806">PW</div>
+          <div>
+            <div class="icp-name">Priya W. — Speech Pathologist</div>
+            <div class="icp-role">Speech Pathology · Solo → 2 staff · Brisbane</div>
+          </div>
+        </div>
+        <div class="icp-body">
+          <div class="trait-row"><span class="trait-label">Practice</span><span class="trait-val">Paediatric speech path, mix of Medicare CDM and NDIS; recently hired admin</span></div>
+          <div class="trait-row"><span class="trait-label">Current tool</span><span class="trait-val">Nookal — hates the UI, no telehealth, billing confusing</span></div>
+          <div class="trait-row"><span class="trait-label">Pains</span><span class="trait-val">
+            <span class="pain-pill">Telehealth via Zoom separately</span>
+            <span class="pain-pill">NDIS + Medicare both manual</span>
+            <span class="pain-pill">Admin staff needs simple tool</span>
+          </span></div>
+          <div class="trait-row"><span class="trait-label">Goals</span><span class="trait-val">One tool for everything; built-in telehealth; admin can invoice without her</span></div>
+          <div class="trait-row"><span class="trait-label">Budget fit</span><span class="trait-val">Solo or Clinic plan; price sensitive but will pay for time saving</span></div>
+          <div class="trait-row"><span class="trait-label">Fit score</span><span class="trait-val">
+            <div style="font-size:11px;color:#0F6E56;font-weight:500">90% — strong ICP</div>
+            <div class="score-bar"><div class="score-fill" style="width:90%"></div></div>
+          </span></div>
+        </div>
+      </div>
+
+      <div class="icp-card">
+        <div class="icp-head">
+          <div class="icp-avatar" style="background:#EEEDFE;color:#3C3489">JT</div>
+          <div>
+            <div class="icp-name">James T. — UK Private Physio</div>
+            <div class="icp-role">Physiotherapist · Solo · London (Phase 5)</div>
+          </div>
+        </div>
+        <div class="icp-body">
+          <div class="trait-row"><span class="trait-label">Practice</span><span class="trait-val">Private practice; mix of self-pay and private health insurance; 25 patients/week</span></div>
+          <div class="trait-row"><span class="trait-label">Current tool</span><span class="trait-val">Jane App (Canadian) — no HCPC tracking, no NHS e-referral support</span></div>
+          <div class="trait-row"><span class="trait-label">Pains</span><span class="trait-val">
+            <span class="pain-pill">HCPC renewal tracked in calendar</span>
+            <span class="pain-pill">No NHS referral integration</span>
+            <span class="pain-pill">GBP billing awkward in Jane</span>
+          </span></div>
+          <div class="trait-row"><span class="trait-label">Goals</span><span class="trait-val">HCPC compliance automated; proper GBP billing; UK-based data storage</span></div>
+          <div class="trait-row"><span class="trait-label">Budget fit</span><span class="trait-val">Solo £32/mo — cheaper than Jane App; built for UK</span></div>
+          <div class="trait-row"><span class="trait-label">Fit score</span><span class="trait-val">
+            <div style="font-size:11px;color:#854F0B;font-weight:500">80% — Phase 5 target</div>
+            <div class="score-bar"><div class="score-fill" style="width:80%;background:#EF9F27"></div></div>
+          </span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px">Ideal customer firmographics — AU Phase 1</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px">
+        <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:10px;text-align:center">
+          <div style="font-size:18px;font-weight:500;color:var(--color-text-primary)">1–5</div>
+          <div style="font-size:11px;color:var(--color-text-secondary)">practitioners</div>
+        </div>
+        <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:10px;text-align:center">
+          <div style="font-size:18px;font-weight:500;color:var(--color-text-primary)">20–80</div>
+          <div style="font-size:11px;color:var(--color-text-secondary)">patients/week</div>
+        </div>
+        <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:10px;text-align:center">
+          <div style="font-size:18px;font-weight:500;color:var(--color-text-primary)">3–10 yrs</div>
+          <div style="font-size:11px;color:var(--color-text-secondary)">in practice</div>
+        </div>
+        <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:10px;text-align:center">
+          <div style="font-size:18px;font-weight:500;color:var(--color-text-primary)">AU metro</div>
+          <div style="font-size:11px;color:var(--color-text-secondary)">Syd/Mel/Bne first</div>
+        </div>
+        <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:10px;text-align:center">
+          <div style="font-size:18px;font-weight:500;color:var(--color-text-primary)">NDIS or</div>
+          <div style="font-size:11px;color:var(--color-text-secondary)">Medicare billing</div>
+        </div>
+        <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:10px;text-align:center">
+          <div style="font-size:18px;font-weight:500;color:var(--color-text-primary)">Physio/OT</div>
+          <div style="font-size:11px;color:var(--color-text-secondary)">Speech path/Pod</div>
+        </div>
+      </div>
+    </div>
+    <button class="deep-btn" onclick="sendPrompt('Write me a cold LinkedIn message to a solo physiotherapist in Sydney to get them to try HealthDesk for free.')">Write LinkedIn outreach message ↗</button>
+  </div>
+
+  <div class="sec" id="s-bad">
+    <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:1rem;line-height:1.6">These profiles look tempting but will drain your time, generate support tickets, and churn early. Avoid them in Month 1–6.</div>
+    <div class="bad-fit">
+      <div class="bad-title"><i class="ti ti-building-hospital" aria-hidden="true" style="color:#A32D2D;font-size:16px"></i>Large hospital-affiliated clinics (10+ practitioners)</div>
+      <div class="bad-desc">They need procurement sign-off, IT security reviews, and integration with enterprise EMRs. Sales cycles are 6–12 months. You'll spend months on calls and get nothing. Target them in Year 2 with a Group+ enterprise tier.</div>
+    </div>
+    <div class="bad-fit">
+      <div class="bad-title"><i class="ti ti-clock-x" aria-hidden="true" style="color:#A32D2D;font-size:16px"></i>Practitioners who "just need a simple calendar"</div>
+      <div class="bad-desc">If they're not billing Medicare or NDIS and have fewer than 10 patients/week, HealthDesk is overkill. They'll complain the product is complex and churn in 30 days. Calendly or HotDoc is the right fit for them.</div>
+    </div>
+    <div class="bad-fit">
+      <div class="bad-title"><i class="ti ti-trending-down" aria-hidden="true" style="color:#A32D2D;font-size:16px"></i>Practices in financial stress or closing</div>
+      <div class="bad-desc">Any clinic complaining "we're losing money" will never pay full price. They'll negotiate hard, pay late, and churn at the first billing cycle. Their complaints will also distort your product feedback signal.</div>
+    </div>
+    <div class="bad-fit">
+      <div class="bad-title"><i class="ti ti-device-desktop-x" aria-hidden="true" style="color:#A32D2D;font-size:16px"></i>Practitioners who refuse to switch from paper</div>
+      <div class="bad-desc">Older clinicians (55+) who still use paper notes and fax referrals will require enormous support investment. You'll be teaching them to use a computer, not your product. The ROI is negative for both of you in early stage.</div>
+    </div>
+    <div class="bad-fit">
+      <div class="bad-title"><i class="ti ti-globe-off" aria-hidden="true" style="color:#A32D2D;font-size:16px"></i>Non-AHPRA disciplines (e.g. massage, naturopathy)</div>
+      <div class="bad-desc">HealthDesk's core moat is Medicare/NDIS billing which requires AHPRA registration. Massage therapists and naturopaths can't access these schemes, making your key differentiator worthless to them.</div>
+    </div>
+  </div>
+
+  <div class="sec" id="s-playbook">
+    <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:1rem;line-height:1.6">An exact 8-week sequence. Not "find people online" — specific actions, in order, with what to say.</div>
+    <div class="step-list">
+      <div class="step">
+        <div class="step-num" style="background:#E6F1FB;color:#0C447C">1</div>
+        <div class="step-content">
+          <div class="step-title">Week 1 — Build your target list of 50 clinics</div>
+          <div class="step-desc">Search Google Maps for "physiotherapy clinic Sydney", "occupational therapist Melbourne", "speech pathology Brisbane". Filter to 1–5 star clinics with Google reviews mentioning "NDIS" or "Medicare". Export name, phone, website, Google Maps URL into a spreadsheet. Aim for 50 names before doing any outreach.</div>
+          <div class="step-tip">Tool: Phantombuster Google Maps scraper or do it manually. Takes ~3 hours.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#E6F1FB;color:#0C447C">2</div>
+        <div class="step-content">
+          <div class="step-title">Week 1 — Find the owner's name on LinkedIn</div>
+          <div class="step-desc">Search LinkedIn for "physiotherapist + clinic name + Sydney". Most clinic owners have LinkedIn profiles. Note: sole traders often ARE the practitioner. If you find a practice manager, even better — they're the real decision maker for software.</div>
+          <div class="step-tip">Search: "physiotherapy practice owner Melbourne" — filter by 2nd-degree connections first.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#E6F1FB;color:#0C447C">3</div>
+        <div class="step-content">
+          <div class="step-title">Week 2 — Join and listen in Facebook groups for 1 week</div>
+          <div class="step-desc">Join: "Australian Physiotherapy Network", "Australian OT Network", "NDIS Allied Health Providers Australia", "Speech Pathology Australia Practitioners". Don't post yet. Read the complaints. Screenshot the ones about Medicare billing, Nookal, Cliniko, NDIS paperwork. These are your exact pain points to mirror back.</div>
+          <div class="step-tip">Typical complaints: "Cliniko doesn't do bulk-bill claims", "NDIS invoicing is killing me", "Anyone found a better option than Nookal?"</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#E6F1FB;color:#0C447C">4</div>
+        <div class="step-content">
+          <div class="step-title">Week 2 — Send 20 warm LinkedIn messages (not cold)</div>
+          <div class="step-desc">Comment genuinely on 3 of their posts first. Then send a connection request with a personalised note (see Outreach tab). Message is NOT a sales pitch — it's a research request. "I'm building something for physios dealing with Medicare bulk-bill headaches. Can I get 20 minutes of your perspective?" Response rate: 15–25% with this approach.</div>
+          <div class="step-tip">Personalise every message. Mention their clinic name and one specific thing from their profile. Generic messages get 2% response rate.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#E1F5EE;color:#085041">5</div>
+        <div class="step-content">
+          <div class="step-title">Week 3 — Run 10 discovery calls (not demos)</div>
+          <div class="step-desc">Don't show the product yet. Ask: "Walk me through how you handle Medicare claims today. What software do you use? What do you hate about it? If you could wave a magic wand, what would billing look like?" Listen for the exact words they use — use those words back in your copy. Offer a $50 Uber Eats voucher for their time if needed.</div>
+          <div class="step-tip">The goal is intel, not a sale. Every sentence they say is a marketing headline you didn't have to write.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#E1F5EE;color:#085041">6</div>
+        <div class="step-content">
+          <div class="step-title">Week 4 — Offer 5 beta spots (free for 3 months)</div>
+          <div class="step-desc">From your 10 discovery calls, pick the 5 whose pain matches your MVP best. Offer: "I'd love to have you as a founding clinic — 3 months free, you get the product first, I get 30 min per week of your feedback." Frame it as an exclusive. Most will say yes because you've already built rapport over two calls.</div>
+          <div class="step-tip">Don't offer to everyone. Scarcity matters. "We're only taking 5 founding clinics" is true and creates urgency.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#FAEEDA;color:#854F0B">7</div>
+        <div class="step-content">
+          <div class="step-title">Week 5–6 — Weekly check-in calls with beta clinics</div>
+          <div class="step-desc">30 min every week. Ask: "What broke? What confused you? What did you wish it did?" Fix bugs within 24 hours. Add the features they ask for most — this is your roadmap validation. One happy beta clinic will spontaneously tell 3 colleagues. This is how you go from 5 to 10.</div>
+          <div class="step-tip">Send a Loom video after every fix: "You mentioned X was broken — I just fixed it, here's how it works now." This builds extraordinary loyalty.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#FAEEDA;color:#854F0B">8</div>
+        <div class="step-content">
+          <div class="step-title">Week 7–8 — Ask for referrals + post in Facebook groups</div>
+          <div class="step-desc">Ask each beta clinic: "Do you know 2–3 other physios or OTs who complain about Cliniko or NDIS billing?" Most will name someone. Also post a helpful answer in the Facebook groups (not a pitch): "I've been researching Medicare bulk-bill workflows for physios — here's what I found..." and mention the product naturally at the end. Convert 5 more clinics this way.</div>
+          <div class="step-tip">The Facebook group post must give genuine value first. A resource, a guide, a comparison table. The mention of HealthDesk is almost a footnote.</div>
+        </div>
+      </div>
+    </div>
+    <button class="deep-btn" onclick="sendPrompt('Give me a 10-question discovery call script for HealthDesk to run with a physiotherapy practice owner about their current billing and scheduling pain points.')">Get discovery call script ↗</button>
+  </div>
+
+  <div class="sec" id="s-outreach">
+    <div class="msg-card">
+      <div class="msg-label">LinkedIn connection request (OT clinic owner with NDIS caseload)</div>
+      <div class="msg-text">Hi [Name], I noticed [Clinic Name] works with NDIS participants — I'm building practice management software that automates the NDIS PRODA billing that most OTs do manually. Would love to connect and get your perspective on what's broken in the current tools.</div>
+      <div class="msg-note">Keep under 300 chars for connection request field. Personalise [Clinic Name] every time.</div>
+    </div>
+
+    <div class="msg-card">
+      <div class="msg-label">Follow-up message after connecting (research ask, not a pitch)</div>
+      <div class="msg-text">Thanks for connecting, [Name]. I'm doing research interviews with allied health practitioners about practice management — specifically around Medicare and NDIS billing. 
+
+No pitch, just 20 minutes of your time to understand the pain points. Would you be open to a quick call this week? Happy to share what I'm finding with other clinics too.</div>
+      <div class="msg-note">Research framing gets 3x more responses than "I'd love to show you my product."</div>
+    </div>
+
+    <div class="msg-card">
+      <div class="msg-label">Facebook group post (gives value first — not a product pitch)</div>
+      <div class="msg-text">I've spent the last 3 months interviewing physios and OTs about their Medicare billing workflows. A few things I found surprising:
+
+— Most clinics submitting bulk-bill claims still do it manually through PRODA, spending 3–5 hours/week
+— Only 2 of the 40+ clinics I spoke to had automated NDIS budget tracking
+— The most common complaint about Cliniko: no native Medicare Online integration
+
+Happy to share the full summary if useful. I'm building something to fix this — if you're one of the clinics drowning in NDIS paperwork and want early access, let me know.</div>
+      <div class="msg-note">Post this after 1 week of being active in the group. Pure value first. The "building something" line is the soft CTA.</div>
+    </div>
+
+    <div class="msg-card">
+      <div class="msg-label">Beta invite (after discovery call — closing the founding clinic)</div>
+      <div class="msg-text">Hi [Name], really appreciated your time last week — your point about NDIS CSV exports taking half a day every month stuck with me.
+
+I'd like to offer you one of our 5 founding clinic spots: 3 months completely free, and I'll build the NDIS features around your exact workflow. In return, 30 minutes per week of honest feedback.
+
+We're only taking 5 clinics at this stage so I can give each one proper attention. Interested?</div>
+      <div class="msg-note">Reference something specific from their discovery call. Shows you listened. Never send this without a prior conversation.</div>
+    </div>
+    <button class="deep-btn" onclick="sendPrompt('Write me a 3-email cold email sequence for HealthDesk targeting Australian physiotherapy practice managers who mention NDIS billing problems on LinkedIn.')">Write full cold email sequence ↗</button>
+  </div>
+
+  <div class="sec" id="s-channels">
+    <div class="channel-grid">
+      <div class="channel">
+        <div class="ch-head"><i class="ti ti-brand-facebook" aria-hidden="true" style="color:#185FA5;font-size:17px"></i>Facebook groups</div>
+        <div class="ch-desc">Australian Physiotherapy Network (18K members), OT Australia Practitioners, NDIS Allied Health Providers, Speech Pathology Australia. Highest concentration of exact ICP in one place.</div>
+        <span class="ch-effort" style="background:#E1F5EE;color:#085041">High ROI · Low cost</span>
+      </div>
+      <div class="channel">
+        <div class="ch-head"><i class="ti ti-brand-linkedin" aria-hidden="true" style="color:#185FA5;font-size:17px"></i>LinkedIn search</div>
+        <div class="ch-desc">Search "physiotherapist practice owner Sydney" or "occupational therapist clinic Melbourne". Filter by 2nd connections. 15–25% connection acceptance with personalised note.</div>
+        <span class="ch-effort" style="background:#E6F1FB;color:#0C447C">Medium ROI · Time intensive</span>
+      </div>
+      <div class="channel">
+        <div class="ch-head"><i class="ti ti-map-pin" aria-hidden="true" style="color:#185FA5;font-size:17px"></i>Google Maps prospecting</div>
+        <div class="ch-desc">Search "physio clinic [suburb]" → click through to website → find owner name → find on LinkedIn. Slow but highly targeted. Good for local clustering in one suburb.</div>
+        <span class="ch-effort" style="background:#FAEEDA;color:#854F0B">Medium ROI · Manual work</span>
+      </div>
+      <div class="channel">
+        <div class="ch-head"><i class="ti ti-school" aria-hidden="true" style="color:#185FA5;font-size:17px"></i>University alumni networks</div>
+        <div class="ch-desc">Physio/OT/speech path graduates from UQ, USyd, UniMelb. Their alumni groups on LinkedIn and Facebook are packed with new graduates starting clinics — low competition for their attention.</div>
+        <span class="ch-effort" style="background:#E1F5EE;color:#085041">High ROI · Underused</span>
+      </div>
+      <div class="channel">
+        <div class="ch-head"><i class="ti ti-microphone" aria-hidden="true" style="color:#185FA5;font-size:17px"></i>Allied health podcasts</div>
+        <div class="ch-desc">Sponsor or guest on "Clinic Mastery", "The Allied Health Business Podcast", "Talking NDIS". One episode reaches 2,000–10,000 exact ICPs. Pitch yourself as an expert on Medicare billing, not a product seller.</div>
+        <span class="ch-effort" style="background:#E1F5EE;color:#085041">High ROI · Relationship needed</span>
+      </div>
+      <div class="channel">
+        <div class="ch-head"><i class="ti ti-building" aria-hidden="true" style="color:#185FA5;font-size:17px"></i>Shared clinic networks</div>
+        <div class="ch-desc">Clinics like HealthSpace, Vibe Health, and OnePointHealth rent rooms to 10–30 solo practitioners each. One partnership puts you in front of 30 ideal customers simultaneously. Offer the facility a referral fee.</div>
+        <span class="ch-effort" style="background:#E1F5EE;color:#085041">Very high ROI · One call</span>
+      </div>
+      <div class="channel">
+        <div class="ch-head"><i class="ti ti-mail" aria-hidden="true" style="color:#185FA5;font-size:17px"></i>Cold email via website</div>
+        <div class="ch-desc">Most clinic websites have a contact email. Format: "Hi [Name], I noticed you're on Cliniko — I'm building a Medicare billing tool specifically for physios. Can I ask 3 quick questions?" Response rate ~3–8% with personalisation.</div>
+        <span class="ch-effort" style="background:#FAEEDA;color:#854F0B">Low-medium ROI · Scalable</span>
+      </div>
+      <div class="channel">
+        <div class="ch-head"><i class="ti ti-calendar-event" aria-hidden="true" style="color:#185FA5;font-size:17px"></i>APA + SPA state events</div>
+        <div class="ch-desc">Australian Physiotherapy Association and Speech Pathology Australia run state-level CPD events monthly. Attend as a delegate, not an exhibitor. Talk to 10 practitioners over coffee. Infinitely better than a cold message.</div>
+        <span class="ch-effort" style="background:#E1F5EE;color:#085041">Very high ROI · In person</span>
+      </div>
+    </div>
+    <button class="deep-btn" onclick="sendPrompt('Give me a script for approaching a shared clinic network operator (like HealthSpace Clinics) to propose a referral partnership for HealthDesk.')">Shared clinic partnership script ↗</button>
+  </div>
+</div>
+
+<script>
+document.getElementById('nav').addEventListener('click', e => {
+  const tab = e.target.closest('.ntab');
+  if(!tab) return;
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  tab.classList.add('on');
+  document.getElementById('s-'+tab.dataset.s).classList.add('on');
+});
+</script>

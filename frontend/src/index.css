@@ -1,0 +1,302 @@
+@import "tailwindcss";
+
+/* ─── Airbnb Design System Tokens ─────────────────────────────────────────── */
+
+@theme {
+  /* Colors */
+  --color-rausch:        #ff385c;
+  --color-rausch-active: #e00b41;
+  --color-rausch-disabled: #ffd1da;
+  --color-error:         #c13515;
+  --color-ink:           #222222;
+  --color-body:          #3f3f3f;
+  --color-muted:         #6a6a6a;
+  --color-muted-soft:    #929292;
+  --color-hairline:      #dddddd;
+  --color-hairline-soft: #ebebeb;
+  --color-border-strong: #c1c1c1;
+  --color-canvas:        #ffffff;
+  --color-surface-soft:  #f7f7f7;
+  --color-surface-strong:#f2f2f2;
+
+  /* Map shadcn vars to Airbnb tokens */
+  --color-background:     #ffffff;
+  --color-foreground:     #222222;
+  --color-card:           #ffffff;
+  --color-card-foreground:#222222;
+  --color-popover:        #ffffff;
+  --color-popover-foreground: #222222;
+  --color-primary:        #ff385c;
+  --color-primary-foreground: #ffffff;
+  --color-secondary:      #f7f7f7;
+  --color-secondary-foreground: #222222;
+  --color-muted-foreground: #6a6a6a;
+  --color-accent:         #f7f7f7;
+  --color-accent-foreground: #222222;
+  --color-destructive:    #c13515;
+  --color-destructive-foreground: #ffffff;
+  --color-border:         #dddddd;
+  --color-input:          #dddddd;
+  --color-ring:           #222222;
+  --color-sidebar:        #ffffff;
+  --color-sidebar-foreground: #222222;
+  --color-sidebar-border: #ebebeb;
+
+  /* Border Radii */
+  --radius-none: 0px;
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-xl:   32px;
+  --radius-full: 9999px;
+
+  /* Font */
+  --font-sans: 'Inter', -apple-system, system-ui, Roboto, 'Helvetica Neue', sans-serif;
+
+  /* Airbnb single elevation shadow */
+  --shadow-airbnb: rgba(0,0,0,0.02) 0 0 0 1px, rgba(0,0,0,0.04) 0 2px 6px 0, rgba(0,0,0,0.1) 0 4px 8px 0;
+}
+
+/* ─── CSS Variables for shadcn compatibility ─────────────────────────────── */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+    --primary: 352 100% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 97%;
+    --secondary-foreground: 0 0% 13%;
+    --muted: 0 0% 97%;
+    --muted-foreground: 0 0% 42%;
+    --accent: 0 0% 97%;
+    --accent-foreground: 0 0% 13%;
+    --destructive: 11 80% 42%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 87%;
+    --input: 0 0% 87%;
+    --ring: 0 0% 13%;
+    --radius: 14px;
+    --sidebar: 0 0% 100%;
+    --sidebar-foreground: 0 0% 13%;
+    --sidebar-border: 0 0% 92%;
+  }
+
+  /* Airbnb does NOT use dark mode on public pages. We keep light only. */
+  .dark {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+    --primary: 352 100% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 97%;
+    --secondary-foreground: 0 0% 13%;
+    --muted: 0 0% 97%;
+    --muted-foreground: 0 0% 42%;
+    --accent: 0 0% 97%;
+    --accent-foreground: 0 0% 13%;
+    --destructive: 11 80% 42%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 87%;
+    --input: 0 0% 87%;
+    --ring: 0 0% 13%;
+    --sidebar: 0 0% 100%;
+    --sidebar-foreground: 0 0% 13%;
+    --sidebar-border: 0 0% 92%;
+  }
+}
+
+/* ─── Global Base Styles ─────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  border-color: #dddddd;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', -apple-system, system-ui, Roboto, 'Helvetica Neue', sans-serif;
+  background-color: #ffffff;
+  color: #222222;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  line-height: 1.5;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  color: #222222;
+  letter-spacing: 0;
+}
+
+/* display-xl: homepage h1 */
+.text-display-xl {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.43;
+  letter-spacing: 0;
+}
+
+/* display-lg: section headers, listing h1 */
+.text-display-lg {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.44px;
+}
+
+/* display-md: section heads */
+.text-display-md {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.43;
+  letter-spacing: 0;
+}
+
+/* display-sm: sub-sections */
+.text-display-sm {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.20;
+  letter-spacing: -0.18px;
+}
+
+/* title-md */
+.text-title-md {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/* title-sm */
+.text-title-sm {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+/* body-md */
+.text-body-md {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* body-sm */
+.text-body-sm {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.43;
+}
+
+/* caption */
+.text-caption {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.29;
+}
+
+/* caption-sm */
+.text-caption-sm {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.23;
+}
+
+/* badge */
+.text-badge {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.18;
+}
+
+/* micro-label */
+.text-micro {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.33;
+}
+
+/* uppercase-tag (NEW badge) */
+.text-tag {
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+}
+
+/* button-md */
+.text-btn-md {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+/* button-sm */
+.text-btn-sm {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.29;
+}
+
+/* nav-link */
+.text-nav {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/* ─── Focus ──────────────────────────────────────────────────────────────── */
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid #222222;
+  outline-offset: 2px;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background-color: #dddddd; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background-color: #c1c1c1; }
+* { scrollbar-width: thin; scrollbar-color: #dddddd transparent; }
+
+/* ─── Airbnb Card Hover ──────────────────────────────────────────────────── */
+
+.airbnb-hover {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.airbnb-hover:hover {
+  box-shadow: rgba(0,0,0,0.02) 0 0 0 1px, rgba(0,0,0,0.04) 0 2px 6px 0, rgba(0,0,0,0.1) 0 4px 8px 0;
+  transform: translateY(-1px);
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+
+::selection {
+  background-color: rgba(255, 56, 92, 0.15);
+  color: #222222;
+}

@@ -1,0 +1,128 @@
+name: CI — PermitPal (.NET 8 + MySQL + React)
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+
+  api-test:
+    name: .NET 8 API Tests
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: permitpal_test
+          MYSQL_USER: permitpal
+          MYSQL_PASSWORD: test_password
+        ports: ["3306:3306"]
+        options: >-
+          --health-cmd "mysqladmin ping -h localhost -u permitpal -ptest_password"
+          --health-interval 10s --health-timeout 5s --health-retries 10
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s --health-timeout 3s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - run: dotnet restore permitpal.sln
+      - run: dotnet build permitpal.sln --no-restore --configuration Release
+
+      - name: Apply EF Core migrations
+        env:
+          ConnectionStrings__DefaultConnection: "Server=localhost;Port=3306;Database=permitpal_test;User=permitpal;Password=test_password;CharSet=utf8mb4;AllowPublicKeyRetrieval=true;SslMode=None;"
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet ef database update --project src/PermitPal.Api
+
+      - name: Seed test jurisdiction data
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u permitpal -ptest_password permitpal_test < database/seeds/countries.sql
+          mysql -h 127.0.0.1 -P 3306 -u permitpal -ptest_password permitpal_test < database/seeds/jurisdictions_au.sql
+
+      - name: Run unit + integration tests
+        env:
+          ConnectionStrings__DefaultConnection: "Server=localhost;Port=3306;Database=permitpal_test;User=permitpal;Password=test_password;CharSet=utf8mb4;AllowPublicKeyRetrieval=true;SslMode=None;"
+          Redis__ConnectionString: "localhost:6379"
+          Jwt__SecretKey: "test-secret-key-for-ci-only-32chars!!"
+          Jwt__Issuer: "permitpal-test"
+          Jwt__Audience: "permitpal-test"
+          GoogleMaps__ApiKey: "test-key"       # mocked in tests
+          Anthropic__ApiKey: "test-key"         # mocked in tests
+        run: dotnet test src/PermitPal.Tests --no-build --configuration Release --collect:"XPlat Code Coverage" --logger "trx;LogFileName=test-results.trx"
+
+      - uses: codecov/codecov-action@v4
+        with:
+          flags: dotnet-api
+
+  frontend-test:
+    name: React Build + TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: cd frontend && npm ci
+      - run: cd frontend && npx tsc --noEmit
+      - run: cd frontend && npm run lint
+      - run: cd frontend && npm run build
+        env:
+          VITE_API_BASE_URL: https://api-staging.permitpal.com
+
+  db-validation:
+    name: MySQL Schema Validation
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: permitpal_schema_test
+          MYSQL_USER: permitpal
+          MYSQL_PASSWORD: test_password
+        ports: ["3306:3306"]
+        options: --health-cmd "mysqladmin ping -h localhost" --health-interval 10s
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply schema + seeds
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u permitpal -ptest_password permitpal_schema_test < database/schema_mysql.sql
+          mysql -h 127.0.0.1 -P 3306 -u permitpal -ptest_password permitpal_schema_test < database/seeds/countries.sql
+          echo "Schema + seeds applied successfully ✓"
+
+  jurisdiction-data-check:
+    name: Jurisdiction Data Quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for stale jurisdiction reviews
+        run: |
+          # Fail CI if any jurisdiction has not been reviewed in 90 days
+          # This keeps the regulatory data team accountable
+          python3 scripts/check_jurisdiction_staleness.py --max-days 90
+        continue-on-error: true   # Warning only — don't fail build
+
+  secret-scan:
+    name: Secret Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD

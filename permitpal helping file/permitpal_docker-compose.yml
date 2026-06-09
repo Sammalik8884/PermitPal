@@ -1,0 +1,76 @@
+version: "3.9"
+
+# PermitPal — Local Development Stack
+# Run: docker compose up -d
+# Then: cd src/PermitPal.Api && dotnet run
+#       cd frontend && npm run dev
+
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: permitpal-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_local
+      MYSQL_DATABASE: permitpal
+      MYSQL_USER: permitpal
+      MYSQL_PASSWORD: permitpal_local
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema_mysql.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./database/seeds/countries.sql:/docker-entrypoint-initdb.d/02_countries.sql
+      - ./database/seeds/jurisdictions_au.sql:/docker-entrypoint-initdb.d/03_au.sql
+      - ./database/seeds/jurisdictions_eu.sql:/docker-entrypoint-initdb.d/04_eu.sql
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "permitpal", "-ppermitpal_local"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: permitpal-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # MailHog — local email testing → http://localhost:8025
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: permitpal-mail
+    restart: unless-stopped
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Web UI
+
+  # phpMyAdmin — DB browser → http://localhost:8080
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: permitpal-dba
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: permitpal
+      PMA_PASSWORD: permitpal_local
+    ports:
+      - "8080:80"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
+  redis_data:

@@ -1,0 +1,365 @@
+
+<h2 class="sr-only">PermitPal — full product spec for short-term rental compliance SaaS targeting US, Europe, and Australia</h2>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{padding:1.5rem 0;font-family:var(--font-sans)}
+.nav{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:1.25rem}
+.tab{font-size:12px;padding:5px 14px;border-radius:20px;border:0.5px solid var(--color-border-secondary);color:var(--color-text-secondary);cursor:pointer;background:var(--color-background-primary);white-space:nowrap}
+.tab.on{font-weight:500}
+.sec{display:none}.sec.on{display:block}
+.hero{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1.25rem}
+.hero-name{font-size:22px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.hero-tag{font-size:13px;color:var(--color-text-secondary);margin-bottom:10px}
+.pills{display:flex;gap:5px;flex-wrap:wrap}
+.pill{font-size:11px;padding:2px 9px;border-radius:20px}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:1.25rem}
+.met{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px;text-align:center}
+.met-num{font-size:19px;font-weight:500;color:var(--color-text-primary)}
+.met-lbl{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:10px}
+.card h3{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.feat{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 12px}
+.feat-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.feat-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.fbadge{font-size:10px;padding:1px 7px;border-radius:20px;display:inline-block;margin-bottom:5px}
+.fb-us{background:#E6F1FB;color:#0C447C}
+.fb-eu{background:#E1F5EE;color:#085041}
+.fb-au{background:#FAEEDA;color:#633806}
+.fb-all{background:#EEEDFE;color:#3C3489}
+.fb-core{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.mkt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:1rem}
+.mkt{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem}
+.mkt-flag{font-size:20px;margin-bottom:6px}
+.mkt-name{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px}
+.reg-row{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;display:flex;align-items:flex-start;gap:6px;line-height:1.4}
+.reg-row i{font-size:14px;flex-shrink:0;margin-top:1px}
+.fine-badge{font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;background:#FCEBEB;color:#A32D2D;display:inline-block;margin-top:6px}
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:1.25rem}
+.plan{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem}
+.plan.pop{border:2px solid var(--color-border-info)}
+.pop-badge{font-size:11px;background:var(--color-background-info);color:var(--color-text-info);padding:2px 10px;border-radius:20px;display:inline-block;margin-bottom:8px}
+.plan-name{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.plan-price{font-size:22px;font-weight:500;color:var(--color-text-primary);margin:5px 0 2px}
+.plan-sub{font-size:11px;color:var(--color-text-secondary);margin-bottom:10px}
+.plan-feat{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;display:flex;align-items:flex-start;gap:5px}
+.plan-feat i{color:#1D9E75;font-size:13px;flex-shrink:0;margin-top:1px}
+.timeline{display:flex;flex-direction:column;gap:0}
+.trow{display:flex;gap:12px;padding:11px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.trow:last-child{border-bottom:none}
+.tphase{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;white-space:nowrap;height:fit-content;margin-top:2px}
+.tcontent strong{font-size:13px;font-weight:500;color:var(--color-text-primary);display:block;margin-bottom:2px}
+.tcontent p{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px}
+.ch{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px}
+.ch-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px;display:flex;align-items:center;gap:5px}
+.ch-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.4}
+.comp-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.comp-name{font-size:12px;min-width:100px;color:var(--color-text-secondary)}
+.comp-bar{flex:1;height:5px;border-radius:3px;background:var(--color-background-secondary);overflow:hidden}
+.comp-fill{height:100%;border-radius:3px}
+.comp-lbl{font-size:11px;color:var(--color-text-tertiary);min-width:90px;text-align:right}
+.deep-btn{font-size:12px;padding:6px 14px;margin-top:1rem}
+.reg-table{width:100%;border-collapse:collapse;font-size:12px}
+.reg-table th{text-align:left;padding:6px 8px;background:var(--color-background-secondary);color:var(--color-text-secondary);font-weight:500;font-size:11px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.reg-table td{padding:6px 8px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);vertical-align:top}
+.reg-table tr:last-child td{border-bottom:none}
+.ok{color:#1D9E75;font-size:13px}
+.no{color:#E24B4A;font-size:13px}
+.part{color:#F5A623;font-size:13px}
+</style>
+
+<div class="w">
+<div class="hero">
+  <div class="hero-name">PermitPal</div>
+  <div class="hero-tag">Short-term rental compliance, permits & night-cap tracking — built for Airbnb hosts in the US, EU & AU</div>
+  <div class="pills">
+    <span class="pill" style="background:#E6F1FB;color:#0C447C">United States</span>
+    <span class="pill" style="background:#E1F5EE;color:#085041">European Union</span>
+    <span class="pill" style="background:#FAEEDA;color:#633806">Australia</span>
+    <span class="pill" style="background:#EEEDFE;color:#3C3489">1–20 properties</span>
+    <span class="pill" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">Solo hosts → small operators</span>
+  </div>
+</div>
+
+<div class="nav" id="nav">
+  <div class="tab on" data-s="overview">Overview</div>
+  <div class="tab" data-s="regs">Regulatory map</div>
+  <div class="tab" data-s="features">Features</div>
+  <div class="tab" data-s="pricing">Pricing</div>
+  <div class="tab" data-s="gtm">Go-to-market</div>
+  <div class="tab" data-s="compete">Competition</div>
+</div>
+
+<div class="sec on" id="s-overview">
+  <div class="metrics">
+    <div class="met"><div class="met-num">7.7M+</div><div class="met-lbl">Airbnb hosts US+EU+AU</div></div>
+    <div class="met"><div class="met-num">$1.6B</div><div class="met-lbl">TAM at $29/mo avg</div></div>
+    <div class="met"><div class="met-num">22%</div><div class="met-lbl">Competition score</div></div>
+    <div class="met"><div class="met-num">€60K</div><div class="met-lbl">Max EU fine per listing</div></div>
+    <div class="met"><div class="met-num">$140K</div><div class="met-lbl">Max Brisbane fine</div></div>
+    <div class="met"><div class="met-num">May 2026</div><div class="met-lbl">EU Reg 2024/1028 live</div></div>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-alert-triangle" aria-hidden="true" style="color:#E24B4A"></i>The problem — regulations just got brutal</h3>
+    <div class="feat-grid">
+      <div class="feat"><div class="feat-title">US: 50-state patchwork</div><div class="feat-desc">Every city has different permit types, renewal dates, night caps, and tax obligations. NYC banned most unhosted STRs. Austin requires license numbers in every ad. Hosts operating across cities are drowning in paperwork.</div></div>
+      <div class="feat"><div class="feat-title">EU: Regulation 2024/1028 just kicked in</div><div class="feat-desc">From May 2026, every EU host must register and display a registration number on all listings. Platforms remove non-compliant listings automatically. Fines of €10K–€60K for violations. Spain fined Airbnb €64M for unlicensed listings.</div></div>
+      <div class="feat"><div class="feat-title">Australia: three-tier chaos</div><div class="feat-desc">NSW: register + 180-night cap. Victoria: 7.5% Short Stay Levy + strata bans. WA: mandatory registration from Jan 2025. Brisbane: new permit laws mid-2026 with $140K fines. Every state different. Every council adds its own rules on top.</div></div>
+      <div class="feat"><div class="feat-title">No one is tracking this for hosts</div><div class="feat-desc">Hosts manage permits in spreadsheets, miss renewal dates, exceed night caps, and get delisted or fined. There is no modern, affordable compliance tool built specifically for individual Airbnb hosts and small operators.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-users" aria-hidden="true" style="color:#185FA5"></i>Target customers</h3>
+    <div class="feat-grid">
+      <div class="feat"><div class="feat-title">Solo Airbnb host (1–3 properties)</div><div class="feat-desc">Managing one home or a couple of investment properties. Not a professional. Gets fined because they didn't know about a permit renewal. <strong>Primary ICP.</strong></div></div>
+      <div class="feat"><div class="feat-title">Small portfolio operator (4–20 properties)</div><div class="feat-desc">Managing across multiple cities or countries. Uses co-hosts or a VA. Needs multi-property compliance dashboard. Willing to pay $79–$149/mo.</div></div>
+      <div class="feat"><div class="feat-title">Property manager (managing others' STRs)</div><div class="feat-desc">Manages compliance on behalf of clients. Needs white-label reporting. Team seats. This is the highest-LTV segment.</div></div>
+    </div>
+  </div>
+  <button class="deep-btn" onclick="sendPrompt('Build me the full database schema for PermitPal — the STR compliance SaaS — covering permit tracking, night-cap monitoring, tax obligations, and multi-property management.')">Build the database schema ↗</button>
+</div>
+
+<div class="sec" id="s-regs">
+  <div class="mkt-grid">
+    <div class="mkt">
+      <div class="mkt-flag">🇺🇸</div>
+      <div class="mkt-name">United States — city-by-city chaos</div>
+      <div class="reg-row"><i class="ti ti-file-certificate" aria-hidden="true" style="color:#185FA5"></i>Permit types vary: business license, STR license, home-sharing permit, owner-occupancy certification</div>
+      <div class="reg-row"><i class="ti ti-moon" aria-hidden="true" style="color:#185FA5"></i>Night caps: NYC (banned unless hosted), SF (90 nights unhosted), Nashville (unlimited), Austin (Type 1/2/3 rules)</div>
+      <div class="reg-row"><i class="ti ti-receipt-tax" aria-hidden="true" style="color:#185FA5"></i>Taxes: TOT (Transient Occupancy Tax), state sales tax, county occupancy tax — all different rates</div>
+      <div class="reg-row"><i class="ti ti-map-pin" aria-hidden="true" style="color:#185FA5"></i>Zoning: residential vs mixed-use vs tourist zones — determines if STR is legal at all</div>
+      <div class="reg-row"><i class="ti ti-refresh" aria-hidden="true" style="color:#185FA5"></i>Renewal: annual in most cities, some quarterly — missing = immediate revocation</div>
+      <span class="fine-badge">Fines: $1,000–$10,000/day (Honolulu $10K/day)</span>
+    </div>
+    <div class="mkt">
+      <div class="mkt-flag">🇪🇺</div>
+      <div class="mkt-name">European Union — Regulation 2024/1028 (May 2026)</div>
+      <div class="reg-row"><i class="ti ti-id-badge" aria-hidden="true" style="color:#1D9E75"></i>Mandatory registration number — must display on ALL listings (Airbnb, Booking, VRBO, direct site)</div>
+      <div class="reg-row"><i class="ti ti-database-share" aria-hidden="true" style="color:#1D9E75"></i>Platforms share host data monthly with national Single Digital Entry Points — no hiding</div>
+      <div class="reg-row"><i class="ti ti-moon" aria-hidden="true" style="color:#1D9E75"></i>Night caps vary: Paris/Amsterdam 120 nights, some areas 30–90 nights, Barcelona eliminating licences by 2028</div>
+      <div class="reg-row"><i class="ti ti-scale" aria-hidden="true" style="color:#1D9E75"></i>France Loi Le Meur: 120-night primary residence cap, mayors can cut to 90 nights, strict energy ratings</div>
+      <div class="reg-row"><i class="ti ti-building" aria-hidden="true" style="color:#1D9E75"></i>Spain: NRU registration number mandatory, €64M fine to Airbnb for unlicensed listings in 2025</div>
+      <span class="fine-badge">Fines: €10,000–€60,000 per listing</span>
+    </div>
+    <div class="mkt">
+      <div class="mkt-flag">🇦🇺</div>
+      <div class="mkt-name">Australia — three-tier state/council system</div>
+      <div class="reg-row"><i class="ti ti-file-text" aria-hidden="true" style="color:#854F0B"></i>NSW: mandatory STRA register ($65 new/$25 renewal), 180-night cap Greater Sydney, 60-night Byron Shire</div>
+      <div class="reg-row"><i class="ti ti-receipt-tax" aria-hidden="true" style="color:#854F0B"></i>Victoria: 7.5% Short Stay Levy on all stays &lt;28 days from Jan 2025 — must self-report for direct bookings</div>
+      <div class="reg-row"><i class="ti ti-file-certificate" aria-hidden="true" style="color:#854F0B"></i>WA: mandatory state registration from Jan 2025 ($250 new/$100 renewal), 90-night Perth metro threshold</div>
+      <div class="reg-row"><i class="ti ti-building" aria-hidden="true" style="color:#854F0B"></i>Brisbane: new permit laws mid-2026, 24/7 contact person required, complaint response within 60 mins</div>
+      <div class="reg-row"><i class="ti ti-flame" aria-hidden="true" style="color:#854F0B"></i>All states: smoke alarm compliance (AS 3786), fire extinguisher + blanket, evacuation diagram at exit</div>
+      <span class="fine-badge">Fines: up to $140,000 AUD (Brisbane), $11,000 NSW</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-table" aria-hidden="true" style="color:#534AB7"></i>Compliance requirement matrix by city</h3>
+    <div style="overflow-x:auto">
+    <table class="reg-table">
+      <thead><tr><th>City / Region</th><th>Permit required</th><th>Night cap</th><th>Registration #</th><th>Tax self-report</th><th>Safety cert</th><th>Fine range</th></tr></thead>
+      <tbody>
+        <tr><td>New York City</td><td><i class="ti ti-check ok"></i> Strict</td><td>Banned (unhosted)</td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i></td><td>$1K–$5K/day</td></tr>
+        <tr><td>San Francisco</td><td><i class="ti ti-check ok"></i></td><td>90 nights/yr</td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i></td><td>$484/day</td></tr>
+        <tr><td>Austin TX</td><td><i class="ti ti-check ok"></i> Type 1/2/3</td><td>None</td><td><i class="ti ti-check ok"></i> In ads</td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-minus part"></i></td><td>Up to $2K</td></tr>
+        <tr><td>Nashville TN</td><td><i class="ti ti-check ok"></i></td><td>None</td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-minus part"></i></td><td>$50–$500</td></tr>
+        <tr><td>Miami FL</td><td><i class="ti ti-check ok"></i></td><td>None state</td><td><i class="ti ti-minus part"></i></td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i></td><td>Up to $20K</td></tr>
+        <tr><td>Paris 🇫🇷</td><td><i class="ti ti-check ok"></i></td><td>120 nights</td><td><i class="ti ti-check ok"></i> Déclaratrion</td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i></td><td>€10K–€60K</td></tr>
+        <tr><td>Barcelona 🇪🇸</td><td><i class="ti ti-check ok"></i> NRU</td><td>Being eliminated</td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i></td><td>€10K–€60K</td></tr>
+        <tr><td>Amsterdam 🇳🇱</td><td><i class="ti ti-check ok"></i></td><td>30 nights (→15?)</td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i></td><td>€10K+</td></tr>
+        <tr><td>Sydney NSW 🇦🇺</td><td><i class="ti ti-check ok"></i> STRA</td><td>180 nights</td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i> ATO</td><td><i class="ti ti-check ok"></i></td><td>Up to $11K</td></tr>
+        <tr><td>Melbourne VIC 🇦🇺</td><td><i class="ti ti-minus part"></i> Council varies</td><td>None statewide</td><td><i class="ti ti-minus part"></i></td><td><i class="ti ti-check ok"></i> 7.5% levy</td><td><i class="ti ti-check ok"></i></td><td>Council fines</td></tr>
+        <tr><td>Perth WA 🇦🇺</td><td><i class="ti ti-check ok"></i> STRA reg</td><td>90 nights threshold</td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i> ATO</td><td><i class="ti ti-check ok"></i></td><td>Up to $8K</td></tr>
+        <tr><td>Brisbane QLD 🇦🇺</td><td><i class="ti ti-check ok"></i> From mid-2026</td><td>TBD</td><td><i class="ti ti-check ok"></i></td><td><i class="ti ti-check ok"></i> ATO</td><td><i class="ti ti-check ok"></i></td><td>Up to $140K</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<div class="sec" id="s-features">
+  <div class="card">
+    <h3><i class="ti ti-shield-check" aria-hidden="true" style="color:#534AB7"></i>Core compliance engine</h3>
+    <div class="feat-grid">
+      <div class="feat"><span class="fbadge fb-all">All markets</span><div class="feat-title">Property compliance profile</div><div class="feat-desc">Enter property address → PermitPal identifies applicable jurisdiction, fetches current rules, returns: what permits you need, current night cap, required registration numbers, and applicable taxes.</div></div>
+      <div class="feat"><span class="fbadge fb-all">All markets</span><div class="feat-title">Permit & licence tracker</div><div class="feat-desc">Store all permits with issue date, expiry date, permit number, issuing authority. 90/30/7 day renewal alerts via email + SMS. One-click link to the renewal portal for 200+ jurisdictions.</div></div>
+      <div class="feat"><span class="fbadge fb-all">All markets</span><div class="feat-title">Night-cap counter</div><div class="feat-desc">Sync with Airbnb/VRBO/Booking.com via iCal or API. Counts booked nights per calendar year per property. Alerts at 80%, 90%, 100% of annual limit. Blocks bookings automatically when cap is reached (API hosts).</div></div>
+      <div class="feat"><span class="fbadge fb-all">All markets</span><div class="feat-title">Registration number manager</div><div class="feat-desc">Store registration numbers per listing per platform. One-click copy to update Airbnb listing description. Validate EU registration numbers against national registries (May 2026 requirement).</div></div>
+      <div class="feat"><span class="fbadge fb-all">All markets</span><div class="feat-title">Compliance score dashboard</div><div class="feat-desc">Every property gets a live compliance score 0–100. Red = action needed. Amber = renewal due soon. Green = fully compliant. Portfolio view for multi-property hosts.</div></div>
+      <div class="feat"><span class="fbadge fb-all">All markets</span><div class="feat-title">Document vault</div><div class="feat-desc">Upload and store permits, safety certificates, insurance docs, fire inspection reports. Auto-tagged by expiry date. Shared access for property managers and accountants.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-flag-2" aria-hidden="true" style="color:#185FA5"></i>US-specific features</h3>
+    <div class="feat-grid">
+      <div class="feat"><span class="fbadge fb-us">US only</span><div class="feat-title">City rule database (500+ cities)</div><div class="feat-desc">Live database of STR rules for 500+ US cities — permit types, night caps, zoning restrictions, primary residency requirements, renewal cadence. Updated monthly via regulatory monitoring.</div></div>
+      <div class="feat"><span class="fbadge fb-us">US only</span><div class="feat-title">TOT / occupancy tax tracker</div><div class="feat-desc">Track Transient Occupancy Tax rates by city + county. Flag direct bookings requiring self-remittance (Airbnb remits state tax, not always local). Export quarterly tax summary for accountant.</div></div>
+      <div class="feat"><span class="fbadge fb-us">US only</span><div class="feat-title">Zoning check</div><div class="feat-desc">Enter property address → check against zoning database to confirm STR is permitted in that zone. Warning if property is in restricted residential zone before host invests in a permit.</div></div>
+      <div class="feat"><span class="fbadge fb-us">US only</span><div class="feat-title">License display checker</div><div class="feat-desc">Scan Airbnb listing URL → verify permit/license number appears in listing description. Alerts if Austin, NYC, or other mandate-cities detect a missing number (causes automatic delisting).</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-star" aria-hidden="true" style="color:#1D9E75"></i>EU-specific features (biggest differentiator)</h3>
+    <div class="feat-grid">
+      <div class="feat"><span class="fbadge fb-eu">EU only</span><div class="feat-title">EU Reg 2024/1028 compliance wizard</div><div class="feat-desc">Step-by-step registration guide for each EU member state — France (Déclaration), Spain (NRU), Netherlands, Germany. Links directly to each national registration portal. Tracks application status.</div></div>
+      <div class="feat"><span class="fbadge fb-eu">EU only</span><div class="feat-title">Registration number validator</div><div class="feat-desc">From May 2026, platforms auto-remove listings with invalid reg numbers. PermitPal validates numbers against country registries and alerts immediately if a number becomes invalid or suspended.</div></div>
+      <div class="feat"><span class="fbadge fb-eu">EU only</span><div class="feat-title">Night-cap monitoring (EU cities)</div><div class="feat-desc">Paris: 120 nights. Amsterdam: 30 nights (proposals for 15). Lyon: 120 nights. Barcelona: approaching phase-out. Track against each city's current cap. Alert before breach — platforms now auto-verify this data monthly.</div></div>
+      <div class="feat"><span class="fbadge fb-eu">EU only</span><div class="feat-title">France Loi Le Meur compliance</div><div class="feat-desc">Track principal residence status (275 days/yr occupancy requirement). Energy rating alerts (DPE requirement from 2025). Mayor-set night reduction monitoring for each French commune.</div></div>
+      <div class="feat"><span class="fbadge fb-eu">EU only</span><div class="feat-title">Platform data reconciliation</div><div class="feat-desc">EU platforms now share host data monthly with authorities. PermitPal shows what data has been reported about your listing — so hosts can cross-check for discrepancies before an authority does.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-sun" aria-hidden="true" style="color:#854F0B"></i>Australia-specific features</h3>
+    <div class="feat-grid">
+      <div class="feat"><span class="fbadge fb-au">AU only</span><div class="feat-title">State STRA registration hub</div><div class="feat-desc">NSW STRA portal link + fee reminder ($65 new / $25 renewal). WA registration ($250/$100). Byron Shire 60-night tracker. Automatically identifies which state rules apply based on property postcode.</div></div>
+      <div class="feat"><span class="fbadge fb-au">AU only</span><div class="feat-title">Victoria Short Stay Levy calculator</div><div class="feat-desc">Calculate 7.5% levy on total booking value (accommodation + cleaning + service charges). For direct bookings: generate quarterly SRO report ready to lodge. Export to accountant. Flag properties approaching reporting threshold.</div></div>
+      <div class="feat"><span class="fbadge fb-au">AU only</span><div class="feat-title">Fire safety compliance checklist</div><div class="feat-desc">AS 3786 smoke alarm requirements by state. Queensland 2027 interconnected photoelectric alarm deadline. Fire extinguisher + blanket checklist. Evacuation diagram template generator. Maintenance log with date reminders.</div></div>
+      <div class="feat"><span class="fbadge fb-au">AU only</span><div class="feat-title">Brisbane complaint protocol</div><div class="feat-desc">From mid-2026: 60-minute response time required + 24-hour resolution + council report. PermitPal provides an incident log template and sends push alert when a complaint is logged, with countdown timer.</div></div>
+      <div class="feat"><span class="fbadge fb-au">AU only</span><div class="feat-title">Strata/OC ban tracker</div><div class="feat-desc">Victoria OCs can ban STRs with 75% majority from Jan 2025. Alert if host's strata corporation has voted or is voting on a ban. Monitors Land Use Victoria register for registered bans at host's address.</div></div>
+      <div class="feat"><span class="fbadge fb-au">AU only</span><div class="feat-title">ATO income report export</div><div class="feat-desc">Generate ATO-ready income summary for short-stay income. Flag GST implications for commercial-residential properties. Export to accountant or load into tax return. Pre-fill for myTax where possible.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-bell" aria-hidden="true" style="color:#F5A623"></i>Alerts & automation</h3>
+    <div class="feat-grid">
+      <div class="feat"><span class="fbadge fb-all">All markets</span><div class="feat-title">Regulatory change alerts</div><div class="feat-desc">When a city or state changes its STR rules, PermitPal alerts every affected host within 24 hours. AI summarises what changed and what action is needed. This is the stickiest feature — regulations change constantly.</div></div>
+      <div class="feat"><span class="fbadge fb-all">All markets</span><div class="feat-title">iCal / Airbnb sync</div><div class="feat-desc">Connect Airbnb calendar via iCal export. PermitPal counts booked nights automatically, no manual entry. Supports VRBO, Booking.com, direct booking calendars. Multi-platform de-duplication.</div></div>
+      <div class="feat"><span class="fbadge fb-all">All markets</span><div class="feat-title">Renewal workflow</div><div class="feat-desc">When a permit is due, PermitPal creates a renewal task with the exact form link, fee, documents needed, and typical processing time. Mark complete → new expiry date auto-set.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec" id="s-pricing">
+  <div class="plan-grid">
+    <div class="plan">
+      <div class="plan-name">Solo</div>
+      <div class="plan-price">$19<span style="font-size:13px;font-weight:400;color:var(--color-text-secondary)">/mo</span></div>
+      <div class="plan-sub">1 property · AU $29 · €19</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Property compliance profile</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Permit tracker + renewal alerts</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Night-cap counter (iCal sync)</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Registration number manager</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Document vault (5GB)</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Regulatory change alerts</div>
+    </div>
+    <div class="plan pop">
+      <div class="pop-badge">Most popular</div>
+      <div class="plan-name">Host</div>
+      <div class="plan-price">$49<span style="font-size:13px;font-weight:400;color:var(--color-text-secondary)">/mo</span></div>
+      <div class="plan-sub">Up to 5 properties · AU $79 · €49</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Everything in Solo</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Multi-property dashboard</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>EU registration wizard (all 27 states)</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>TOT / levy tax reporting</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Zoning check (US)</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>License display checker</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Fire safety checklist (AU)</div>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Operator</div>
+      <div class="plan-price">$129<span style="font-size:13px;font-weight:400;color:var(--color-text-secondary)">/mo</span></div>
+      <div class="plan-sub">Up to 20 properties · AU $199 · €129</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Everything in Host</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Team access (3 seats)</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>White-label compliance reports</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>EU platform data reconciliation</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Brisbane complaint log + timer</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Priority regulatory alerts</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>API access for PMS integrations</div>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Manager</div>
+      <div class="plan-price">Custom</div>
+      <div class="plan-sub">20+ properties · per-property pricing</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Unlimited properties</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Unlimited team seats</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>White-label portal for clients</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Custom regulatory monitoring</div>
+      <div class="plan-feat"><i class="ti ti-check" aria-hidden="true"></i>Dedicated account manager</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-chart-line" aria-hidden="true" style="color:#185FA5"></i>Revenue milestones</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px">
+      <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px;text-align:center"><div style="font-size:16px;font-weight:500">200 hosts</div><div style="font-size:11px;color:var(--color-text-secondary)">Month 4 · ~$6K MRR</div></div>
+      <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px;text-align:center"><div style="font-size:16px;font-weight:500">800 hosts</div><div style="font-size:11px;color:var(--color-text-secondary)">Month 9 · ~$24K MRR</div></div>
+      <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px;text-align:center"><div style="font-size:16px;font-weight:500">2,000 hosts</div><div style="font-size:11px;color:var(--color-text-secondary)">Month 15 · ~$60K MRR</div></div>
+      <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px;text-align:center"><div style="font-size:16px;font-weight:500">$1M ARR</div><div style="font-size:11px;color:var(--color-text-secondary)">Month 22 · ~4,000 hosts</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec" id="s-gtm">
+  <div class="card">
+    <h3><i class="ti ti-rocket" aria-hidden="true" style="color:#185FA5"></i>Launch sequence</h3>
+    <div class="timeline">
+      <div class="trow"><span class="tphase" style="background:#E6F1FB;color:#0C447C">Month 1–2</span><div class="tcontent"><strong>Build EU compliance wizard first</strong><p>EU Reg 2024/1028 fully applies May 2026 — every EU host needs to register. This is a time-sensitive, high-urgency pain that gives you a natural deadline to sell against. Build the registration wizard for France, Spain, Netherlands, Germany first. Target EU hosts immediately.</p></div></div>
+      <div class="trow"><span class="tphase" style="background:#E1F5EE;color:#085041">Month 2–4</span><div class="tcontent"><strong>AU beta — NSW + Victoria + WA</strong><p>Three states with the most complex requirements in 2025. NSW STRA register + 180-night cap, Victoria 7.5% levy self-reporting, WA new mandatory registration. Every AU host with a property in these states has an active pain right now.</p></div></div>
+      <div class="trow"><span class="tphase" style="background:#FAEEDA;color:#854F0B">Month 3–6</span><div class="tcontent"><strong>US — top 10 cities</strong><p>NYC, SF, Austin, Nashville, Miami, Denver, Seattle, Chicago, LA, Honolulu. Build the city rules database for these 10 cities first. They cover 80% of US host demand. Expand to 500 cities by month 12 via a regulatory data team or partnership.</p></div></div>
+      <div class="trow"><span class="tphase" style="background:#EEEDFE;color:#3C3489">Month 6–12</span><div class="tcontent"><strong>SEO content moat</strong><p>Write the definitive guide to STR compliance for every target city. "Austin Airbnb permit requirements 2025", "Paris short-term rental registration number", "Sydney 180-night cap tracking". Zero competitors doing this well. Organic traffic becomes the primary acquisition channel.</p></div></div>
+      <div class="trow"><span class="tphase" style="background:#FCEBEB;color:#A32D2D">Month 9+</span><div class="tcontent"><strong>Property manager channel</strong><p>Partner with PMS tools: Hospitable, Hostaway, Guesty. Build integrations that pull booking data automatically for night-cap tracking. Property managers become the distribution channel — they manage 20+ properties each and will pay Operator plan.</p></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-speakerphone" aria-hidden="true" style="color:#1D9E75"></i>Acquisition channels</h3>
+    <div class="ch-grid">
+      <div class="ch"><div class="ch-title"><i class="ti ti-search" aria-hidden="true" style="font-size:16px;color:#185FA5"></i>SEO — highest ROI</div><div class="ch-desc">Every host who googles "Austin STR permit" or "Paris Airbnb registration number 2026" is in active pain. Zero good content exists. 50 city guides = 50K monthly visitors within 9 months.</div></div>
+      <div class="ch"><div class="ch-title"><i class="ti ti-brand-facebook" aria-hidden="true" style="font-size:16px;color:#185FA5"></i>Facebook groups</div><div class="ch-desc">"Airbnb Hosts Forum" (200K members), "Short Term Rental Owners" (180K), "Airbnb Australia Hosts" (45K). Post genuine regulatory updates — not ads. Build trust before mentioning product.</div></div>
+      <div class="ch"><div class="ch-title"><i class="ti ti-ad" aria-hidden="true" style="font-size:16px;color:#534AB7"></i>Google Ads — urgency</div><div class="ch-desc">"EU STR registration 2026", "Airbnb permit [city]" have high intent and low CPC ($1–$3). Run ads on regulatory deadline dates — this creates natural urgency.</div></div>
+      <div class="ch"><div class="ch-title"><i class="ti ti-building" aria-hidden="true" style="font-size:16px;color:#1D9E75"></i>PMS integrations</div><div class="ch-desc">Hospitable, Hostaway, Guesty, Lodgify collectively manage millions of STR properties. An app store listing + integration = access to entire user base. Fastest path to scale.</div></div>
+      <div class="ch"><div class="ch-title"><i class="ti ti-microphone" aria-hidden="true" style="font-size:16px;color:#854F0B"></i>STR podcasts</div><div class="ch-desc">"STR Secrets", "Short Term Rental Riches", "Airbnb Superhost". Massive audiences of active hosts, sponsor or appear as compliance expert. One episode = 5,000 qualified listeners.</div></div>
+      <div class="ch"><div class="ch-title"><i class="ti ti-mail" aria-hidden="true" style="font-size:16px;color:#E24B4A"></i>Email newsletters</div><div class="ch-desc">"The Host Newsletter", "STR Weekly", Airbnb community newsletters. Sponsor or write a column. Hosts actively read regulatory updates — this is the only newsletter topic they won't unsubscribe from.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec" id="s-compete">
+  <div class="card">
+    <h3><i class="ti ti-chart-bar" aria-hidden="true" style="color:#185FA5"></i>How well competitors cover compliance</h3>
+    <div style="margin-bottom:1rem">
+      <div class="comp-row"><span class="comp-name">Hostaway</span><div class="comp-bar"><div class="comp-fill" style="width:25%;background:#E24B4A"></div></div><span class="comp-lbl" style="color:#A32D2D">25% — PMS, not compliance</span></div>
+      <div class="comp-row"><span class="comp-name">Hospitable</span><div class="comp-bar"><div class="comp-fill" style="width:20%;background:#E24B4A"></div></div><span class="comp-lbl" style="color:#A32D2D">20% — messaging focus</span></div>
+      <div class="comp-row"><span class="comp-name">Lodgify</span><div class="comp-bar"><div class="comp-fill" style="width:15%;background:#E24B4A"></div></div><span class="comp-lbl" style="color:#A32D2D">15% — website builder</span></div>
+      <div class="comp-row"><span class="comp-name">Avalara MyLodgeTax</span><div class="comp-bar"><div class="comp-fill" style="width:45%;background:#EF9F27"></div></div><span class="comp-lbl" style="color:#854F0B">45% — US tax only, $$$</span></div>
+      <div class="comp-row"><span class="comp-name">Harmari STR</span><div class="comp-bar"><div class="comp-fill" style="width:35%;background:#EF9F27"></div></div><span class="comp-lbl" style="color:#854F0B">35% — city-facing tool</span></div>
+      <div class="comp-row"><span class="comp-name">PermitPal</span><div class="comp-bar"><div class="comp-fill" style="width:92%;background:#1D9E75"></div></div><span class="comp-lbl" style="color:#0F6E56">92% — built for hosts</span></div>
+    </div>
+    <div class="feat-grid">
+      <div class="feat"><div class="feat-title">Hostaway / Hospitable gap</div><div class="feat-desc">PMS tools focus on booking management, messaging, and pricing. Compliance is an afterthought — no permit tracking, no night-cap counter, no regulatory change alerts. They won't build this because it's not their core.</div></div>
+      <div class="feat"><div class="feat-title">Avalara gap</div><div class="feat-desc">US-only, enterprise-priced, tax-only. Does not track permits, night caps, EU registration numbers, or AU levies. Starts at $200+/mo — too expensive for solo hosts.</div></div>
+      <div class="feat"><div class="feat-title">The moat</div><div class="feat-desc">PermitPal's regulatory database is the moat. Mapping 500+ US cities, 27 EU member states, and all AU states/councils takes 12+ months and ongoing maintenance. First mover builds the most comprehensive database.</div></div>
+    </div>
+  </div>
+  <button class="deep-btn" onclick="sendPrompt('Give me the full day-by-day 180-day build roadmap for PermitPal — the STR compliance SaaS — with .NET 8, MySQL, and React as the tech stack.')">Get the 180-day build roadmap ↗</button>
+</div>
+</div>
+
+<script>
+const PCOLS = {
+  overview:"#185FA5", regs:"#1D9E75", features:"#534AB7",
+  pricing:"#F5A623", gtm:"#E24B4A", compete:"#888780"
+};
+const PLIGHTS = {
+  overview:"#E6F1FB", regs:"#E1F5EE", features:"#EEEDFE",
+  pricing:"#FAEEDA", gtm:"#FCEBEB", compete:"#F1EFE8"
+};
+document.getElementById('nav').addEventListener('click', e=>{
+  const tab = e.target.closest('.tab');
+  if(!tab) return;
+  const s = tab.dataset.s;
+  document.querySelectorAll('.tab').forEach(t=>{t.classList.remove('on');t.style.cssText='';});
+  document.querySelectorAll('.sec').forEach(sec=>sec.classList.remove('on'));
+  tab.classList.add('on');
+  tab.style.cssText = `background:${PLIGHTS[s]};color:${PCOLS[s]};border-color:${PCOLS[s]}55;font-weight:500`;
+  document.getElementById('s-'+s).classList.add('on');
+});
+</script>

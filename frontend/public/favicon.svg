@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Red rounded square background -->
+  <rect width="32" height="32" rx="8" fill="#ff385c"/>
+  <!-- Shield shape in white -->
+  <path
+    d="M16 5L7 9v6.5C7 20.75 10.9 25.6 16 27c5.1-1.4 9-6.25 9-11.5V9L16 5z"
+    fill="white"
+  />
+  <!-- Checkmark in red -->
+  <path
+    d="M12 16.5l2.5 2.5 5.5-5.5"
+    stroke="#ff385c"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

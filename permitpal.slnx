@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PermitPal.Api/PermitPal.Api.csproj" />
+    <Project Path="src/PermitPal.Application/PermitPal.Application.csproj" />
+    <Project Path="src/PermitPal.Domain/PermitPal.Domain.csproj" />
+    <Project Path="src/PermitPal.Infrastructure/PermitPal.Infrastructure.csproj" />
+    <Project Path="src/PermitPal.Tests/PermitPal.Tests.csproj" />
+    <Project Path="src/PermitPal.Worker/PermitPal.Worker.csproj" />
+  </Folder>
+</Solution>
