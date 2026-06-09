@@ -77,7 +77,10 @@ export interface Property {
   latitude: number | null;
   longitude: number | null;
   bedroomCount: number;
+  bathroomCount?: number;
   maxGuests: number;
+  registrationNumber?: string | null;
+  notes?: string | null;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;

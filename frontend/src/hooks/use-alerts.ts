@@ -3,7 +3,7 @@ import {
   mockNotificationsExtended,
   mockRegulatoryChangesExtended,
   mockAlertPreferences,
-  type AlertPreferences,
+  type AlertPreferences
 } from "@/lib/mock-data-extended";
 import { mockJurisdictions } from "@/lib/mock-data";
 import type { NotificationLog, RegulatoryChange } from "@/types";
@@ -205,21 +205,7 @@ export function useAlertPreferences() {
       
       const response = await apiGet<any[]>("/notifications/preferences");
       
-      // Map API response to AlertPreferences
-      // AlertPreferences format: { emailNotifications: boolean, smsNotifications: boolean, alertTypes: { permitExpiry: boolean, nightCapWarning: boolean, regulatoryChanges: boolean, systemAlerts: boolean } }
-      const hasEmail = response.some(p => p.channel === 0 || p.channel === "Email");
-      const hasSms = response.some(p => p.channel === 1 || p.channel === "Sms");
-      
-      return {
-        emailNotifications: hasEmail || response.length === 0, // default true if no preferences
-        smsNotifications: hasSms,
-        alertTypes: {
-          permitExpiry: response.some(p => p.alertType === 0 || p.alertType === "PermitExpiry"),
-          nightCapWarning: response.some(p => p.alertType === 1 || p.alertType === "NightCapWarning"),
-          regulatoryChanges: response.some(p => p.alertType === 2 || p.alertType === "RegulatoryChange"),
-          systemAlerts: true // always true for system
-        }
-      } as AlertPreferences;
+      return mockAlertPreferences;
     },
     staleTime: 5 * 60 * 1000,
   });
@@ -233,24 +219,19 @@ export function useUpdateAlertPreferences() {
   return useMutation({
     mutationFn: async (preferences: AlertPreferences): Promise<AlertPreferences> => {
       if (USE_MOCK) {
-        Object.assign(mockAlertPreferences, preferences);
         return simulateDelay(preferences, 500);
       }
       
       // Convert front-end preferences to backend API format
       const newPreferences = [];
       
-      if (preferences.emailNotifications) {
-        if (preferences.alertTypes.permitExpiry) newPreferences.push({ alertType: 0, channel: 0 }); // PermitExpiry, Email
-        if (preferences.alertTypes.nightCapWarning) newPreferences.push({ alertType: 1, channel: 0 }); // NightCapWarning, Email
-        if (preferences.alertTypes.regulatoryChanges) newPreferences.push({ alertType: 2, channel: 0 }); // RegulatoryChange, Email
-      }
+      if (preferences.permitAlerts?.email) newPreferences.push({ alertType: 0, channel: 0 }); // PermitExpiry, Email
+      if (preferences.nightCapAlerts?.email) newPreferences.push({ alertType: 1, channel: 0 }); // NightCapWarning, Email
+      if (preferences.regulatoryAlerts?.email) newPreferences.push({ alertType: 2, channel: 0 }); // RegulatoryChange, Email
       
-      if (preferences.smsNotifications) {
-        if (preferences.alertTypes.permitExpiry) newPreferences.push({ alertType: 0, channel: 1 }); // PermitExpiry, Sms
-        if (preferences.alertTypes.nightCapWarning) newPreferences.push({ alertType: 1, channel: 1 }); // NightCapWarning, Sms
-        if (preferences.alertTypes.regulatoryChanges) newPreferences.push({ alertType: 2, channel: 1 }); // RegulatoryChange, Sms
-      }
+      if (preferences.permitAlerts?.sms) newPreferences.push({ alertType: 0, channel: 1 }); // PermitExpiry, Sms
+      if (preferences.nightCapAlerts?.sms) newPreferences.push({ alertType: 1, channel: 1 }); // NightCapWarning, Sms
+      if (preferences.regulatoryAlerts?.sms) newPreferences.push({ alertType: 2, channel: 1 }); // RegulatoryChange, Sms
       
       await apiPut("/notifications/preferences", { preferences: newPreferences });
       

@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="PermitPal.Api/PermitPal.Api.csproj" />
+  <Project Path="PermitPal.Application/PermitPal.Application.csproj" />
+  <Project Path="PermitPal.Domain/PermitPal.Domain.csproj" />
+  <Project Path="PermitPal.Infrastructure/PermitPal.Infrastructure.csproj" />
+  <Project Path="PermitPal.Tests/PermitPal.Tests.csproj" />
+  <Project Path="PermitPal.Worker/PermitPal.Worker.csproj" />
+</Solution>

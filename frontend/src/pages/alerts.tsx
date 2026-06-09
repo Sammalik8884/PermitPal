@@ -161,13 +161,13 @@ export default function AlertsPage() {
               width: "48px",
               height: "48px",
               borderRadius: "50%",
-              backgroundColor: getIconBg(alert.type),
+              backgroundColor: getIconBg(alert.alertType),
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0
             }}>
-              {getIcon(alert.type)}
+              {getIcon(alert.alertType)}
             </div>
 
               <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>

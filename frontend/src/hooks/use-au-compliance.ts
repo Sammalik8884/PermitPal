@@ -48,7 +48,7 @@ export function useAuLevySummary(propertyId: string | undefined, year: number) {
         totalOwed: response.totalOwed || 0,
         totalPaid: response.totalPaid || 0,
         balance: response.balance || 0,
-        status: response.status?.toLowerCase() || "unknown",
+        status: (response.status?.toLowerCase() as any) || "unpaid",
       } as AuLevySummaryData;
     },
     enabled: !!propertyId,
@@ -81,7 +81,7 @@ export function useAllAuLevySummaries(year: number) {
               totalOwed: response.totalOwed || 0,
               totalPaid: response.totalPaid || 0,
               balance: response.balance || 0,
-              status: response.status?.toLowerCase() || "unknown",
+              status: (response.status?.toLowerCase() as any) || "unpaid",
             } as AuLevySummaryData;
         } catch (e) {
            return {
@@ -93,7 +93,7 @@ export function useAllAuLevySummaries(year: number) {
               totalOwed: 0,
               totalPaid: 0,
               balance: 0,
-              status: "unknown",
+              status: "unpaid",
            } as AuLevySummaryData;
         }
       }));
@@ -211,12 +211,18 @@ export function useAuFireSafety(propertyId: string | undefined) {
       
       const response = await apiGet<any>(`/au-compliance/fire-safety/${propertyId}`);
       return {
+        id: response.id || propertyId,
         propertyId: propertyId,
-        lastInspectionDate: response.lastInspectionDate,
-        nextInspectionDate: response.nextInspectionDate,
-        isCompliant: response.isCompliant,
-        certificateUrl: response.certificateUrl,
-        notes: response.notes
+        propertyName: "",
+        smokeAlarmsInstalled: response.smokeAlarmsInstalled || false,
+        smokeAlarmsLastTested: response.smokeAlarmsLastTested || null,
+        fireExtinguisherPresent: response.fireExtinguisherPresent || false,
+        fireExtinguisherExpiry: response.fireExtinguisherExpiryDate || null,
+        evacuationPlanDisplayed: response.evacuationPlanDisplayed || false,
+        lastInspectionDate: response.lastInspectionDate || null,
+        nextInspectionDue: response.nextInspectionDue || null,
+        overallStatus: response.isCompliant ? "compliant" : "action_required",
+        actionItems: [],
       } as AuFireSafetyRecord;
     },
     enabled: !!propertyId,
@@ -455,7 +461,7 @@ export function useLogComplaint() {
 
 export interface UpdateComplaintInput {
   complaintId: string;
-  status: "open" | "responded" | "resolved" | "escalated";
+  status: "open" | "investigating" | "resolved" | "dismissed";
   resolution?: string;
 }
 

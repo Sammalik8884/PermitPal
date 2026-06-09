@@ -192,13 +192,13 @@ export function UpdateComplaintDialog({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="open">Open</SelectItem>
-                <SelectItem value="responded">Responded</SelectItem>
+                <SelectItem value="investigating">Investigating</SelectItem>
                 <SelectItem value="resolved">Resolved</SelectItem>
-                <SelectItem value="escalated">Escalated</SelectItem>
+                <SelectItem value="dismissed">Dismissed</SelectItem>
               </SelectContent>
             </Select>
           </div>
-          {(status === "resolved" || status === "responded") && (
+          {(status === "resolved" || status === "dismissed") && (
             <div className="space-y-2">
               <Label htmlFor="resolution">Resolution</Label>
               <Textarea

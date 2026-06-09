@@ -14,6 +14,12 @@ public class AuthServiceTests : IDisposable
     private readonly AuthService _authService;
     private readonly IConfiguration _configuration;
 
+    private class FakeEmailService : PermitPal.Application.Interfaces.IEmailService
+    {
+        public Task SendAsync(string to, string subject, string htmlBody) => Task.CompletedTask;
+        public Task SendTemplateAsync(string to, string templateName, object data) => Task.CompletedTask;
+    }
+
     public AuthServiceTests()
     {
         _dbContext = TestDbContextFactory.Create();
@@ -28,7 +34,7 @@ public class AuthServiceTests : IDisposable
             })
             .Build();
 
-        _authService = new AuthService(_dbContext, _configuration);
+        _authService = new AuthService(_dbContext, _configuration, new FakeEmailService());
     }
 
     [Fact]

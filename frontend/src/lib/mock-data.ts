@@ -55,9 +55,6 @@ export interface ActivityItem {
 
 export interface PropertyDetail extends Property {
   addressLine2?: string;
-  registrationNumber?: string;
-  bathroomCount: number;
-  notes?: string;
   jurisdictionName: string;
 }
 

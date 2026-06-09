@@ -146,6 +146,9 @@ export function useEuRegistrationProgress(propertyId: string | undefined) {
         propertyName: property?.name || "Unknown Property", 
         status: response.status || "in_progress",
         registrationNumber: response.registrationNumber || null,
+        completedSteps: response.steps?.filter((s: any) => s.isCompleted || s.completed).length || 0,
+        totalSteps: response.steps?.length || 0,
+        percentComplete: response.steps?.length ? Math.round(((response.steps?.filter((s: any) => s.isCompleted || s.completed).length || 0) / response.steps?.length) * 100) : 0,
         steps: response.steps?.map((s: any) => ({
           id: s.stepName,
           stepName: s.stepName,
@@ -183,9 +186,13 @@ export function useEuRequirements(countryCode: string | undefined) {
       return {
         countryCode,
         countryName: countryCode,
+        countryFlag: "🇪🇺",
+        summary: "Requirements summary",
+        requirements: [],
+        officialPortalUrl: "",
         generalRequirements: response.map(r => r.name),
         stateRequirements: []
-      } as EuCountryRequirements;
+      } as unknown as EuCountryRequirements;
     },
     enabled: !!countryCode,
     staleTime: 5 * 60 * 1000,

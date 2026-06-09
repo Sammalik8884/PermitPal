@@ -23,6 +23,7 @@ export interface DashboardStats {
 export interface ComplianceHistoryPoint {
   month: string;
   score: number;
+  properties: number;
 }
 export interface PropertyAtRisk {
   id: string;
