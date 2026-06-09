@@ -232,7 +232,7 @@ export function useDocumentDownloadUrl(id: string | undefined) {
         return simulateDelay(`https://storage.example.com/${doc.storageKey}?token=mock-presigned`);
       }
       
-      const response = await apiGet<{ url: string }>(`/documents/${id}/download-url`);
+      const response = await apiGet<{ url: string }>(`/documents/${id}/download`);
       return response.url;
     },
     enabled: !!id,

@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { Download, FileText, FileImage, File, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils";
-import { getPropertyNameForDocument } from "@/hooks/use-documents";
+import { getPropertyNameForDocument, useDocumentDownloadUrl } from "@/hooks/use-documents";
 import type { Document } from "@/types";
 
 // ─── Type Badge Config ───────────────────────────────────────────────────────
@@ -49,12 +49,14 @@ interface DocumentPreviewDialogProps {
 }
 
 export function DocumentPreviewDialog({ open, onOpenChange, document }: DocumentPreviewDialogProps) {
+  const { data: realDownloadUrl, isLoading: isUrlLoading } = useDocumentDownloadUrl(document?.id);
+
   if (!document) return null;
 
   const FileIcon = getFileIcon(document.fileType);
   const typeInfo = typeConfig[document.documentType] ?? typeConfig.other;
   const propertyName = getPropertyNameForDocument(document.propertyId);
-  const downloadUrl = `https://storage.example.com/${document.storageKey}?token=mock-presigned`;
+  const downloadUrl = realDownloadUrl || `https://storage.example.com/${document.storageKey}?token=mock-presigned`;
   const isImage = document.fileType.startsWith("image/");
 
   return (
@@ -129,17 +131,31 @@ export function DocumentPreviewDialog({ open, onOpenChange, document }: Document
 
         {/* Actions */}
         <div className="flex items-center gap-2">
-          <Button asChild className="flex-1">
-            <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
-              <Download className="h-4 w-4 mr-2" />
-              Download
-            </a>
+          <Button asChild className="flex-1" disabled={!realDownloadUrl}>
+            {realDownloadUrl ? (
+              <a href={realDownloadUrl} target="_blank" rel="noopener noreferrer">
+                <Download className="h-4 w-4 mr-2" />
+                Download
+              </a>
+            ) : (
+              <span className="cursor-not-allowed opacity-50 flex items-center justify-center">
+                <Download className="h-4 w-4 mr-2" />
+                Loading...
+              </span>
+            )}
           </Button>
-          <Button variant="outline" asChild>
-            <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="h-4 w-4 mr-2" />
-              Open
-            </a>
+          <Button variant="outline" asChild disabled={!realDownloadUrl}>
+            {realDownloadUrl ? (
+              <a href={realDownloadUrl} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Open
+              </a>
+            ) : (
+              <span className="cursor-not-allowed opacity-50 flex items-center justify-center">
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Loading...
+              </span>
+            )}
           </Button>
         </div>
       </DialogContent>
