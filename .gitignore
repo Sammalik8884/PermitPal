@@ -124,3 +124,6 @@ yarn-error.log*
 *.temp
 *.bak
 *.orig
+
+# Publish directory
+publish/
