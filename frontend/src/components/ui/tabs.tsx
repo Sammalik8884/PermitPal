@@ -13,11 +13,12 @@ const TabsList = React.forwardRef<
     ref={ref}
     style={{
       backgroundColor: "#f2f2f2",
-      borderRadius: "9999px",
+      borderRadius: "12px",
       padding: "4px",
-      display: "inline-flex",
+      display: "flex",
+      flexWrap: "wrap",
       alignItems: "center",
-      justifyContent: "center",
+      gap: "4px"
     }}
     className={className}
     {...props}
