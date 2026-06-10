@@ -136,24 +136,10 @@ function AuthLayout() {
         </div>
 
         {/* Centered Form */}
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "32px 24px",
-            overflowY: "auto",
-          }}
-        >
+        <div className="flex-1 flex items-center justify-center p-6 sm:p-8 overflow-y-auto">
           <div
+            className="w-full max-w-[520px] bg-white rounded-[20px] border border-[#dddddd] p-6 sm:p-10 shadow-sm"
             style={{
-              width: "100%",
-              maxWidth: "520px",
-              backgroundColor: "#ffffff",
-              borderRadius: "20px",
-              border: "1px solid #dddddd",
-              padding: "40px",
               boxShadow: "rgba(0,0,0,0.02) 0 0 0 1px, rgba(0,0,0,0.04) 0 2px 6px 0, rgba(0,0,0,0.1) 0 4px 8px 0",
             }}
           >

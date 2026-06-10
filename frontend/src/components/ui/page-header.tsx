@@ -60,7 +60,7 @@ export function PageHeader({ title, description, actions, children, className, b
       )}
 
       {/* Header row */}
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px" }}>
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
           <h1
             style={{
@@ -80,7 +80,7 @@ export function PageHeader({ title, description, actions, children, className, b
           )}
         </div>
         {rightSlot && (
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
+          <div className="flex items-center gap-3 w-full sm:w-auto shrink-0 mt-2 sm:mt-0">
             {rightSlot}
           </div>
         )}

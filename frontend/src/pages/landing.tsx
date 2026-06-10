@@ -70,14 +70,14 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section style={{ padding: "100px 24px", textAlign: "center", borderBottom: "1px solid #ebebeb" }}>
         <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-          <h1 style={{ fontSize: "56px", fontWeight: 800, color: "#222222", letterSpacing: "-1.5px", lineHeight: 1.1, marginBottom: "24px" }}>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-[800] text-[#222222] tracking-[-1.5px] leading-[1.1] mb-6">
             The all-in-one platform for short-term rental compliance.
           </h1>
           <p style={{ fontSize: "20px", color: "#6a6a6a", lineHeight: 1.5, marginBottom: "40px", maxWidth: "600px", margin: "0 auto 40px" }}>
             Track permits, monitor night caps, and stay ahead of regulatory changes across the EU, AU, and US with PermitPal.
           </p>
-          <div style={{ display: "flex", justifyContent: "center", gap: "16px" }}>
-            <Link to="/register">
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link to="/register" className="w-full sm:w-auto">
               <button style={{ 
                 backgroundColor: "#ff385c", 
                 color: "#ffffff", 
@@ -86,12 +86,13 @@ export default function LandingPage() {
                 padding: "16px 32px", 
                 fontSize: "16px", 
                 fontWeight: 600, 
-                cursor: "pointer" 
+                cursor: "pointer",
+                width: "100%"
               }}>
                 Start for free
               </button>
             </Link>
-            <a href="#features">
+            <a href="#features" className="w-full sm:w-auto">
               <button style={{ 
                 backgroundColor: "#ffffff", 
                 color: "#222222", 
@@ -100,7 +101,8 @@ export default function LandingPage() {
                 padding: "16px 32px", 
                 fontSize: "16px", 
                 fontWeight: 600, 
-                cursor: "pointer" 
+                cursor: "pointer",
+                width: "100%"
               }}>
                 How it works
               </button>

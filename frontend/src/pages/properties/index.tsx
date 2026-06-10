@@ -137,7 +137,7 @@ function PropertiesPage() {
 
             {/* Property Type Filter */}
             <Select value={propertyType} onValueChange={setPropertyType}>
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger className="w-full sm:w-[140px]">
                 <SelectValue placeholder="Type" />
               </SelectTrigger>
               <SelectContent>
@@ -153,7 +153,7 @@ function PropertiesPage() {
 
             {/* Compliance Status Filter */}
             <Select value={complianceStatus} onValueChange={setComplianceStatus}>
-              <SelectTrigger className="w-[150px]">
+              <SelectTrigger className="w-full sm:w-[150px]">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
@@ -166,7 +166,7 @@ function PropertiesPage() {
 
             {/* Sort */}
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-[150px]">
+              <SelectTrigger className="w-full sm:w-[150px]">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>

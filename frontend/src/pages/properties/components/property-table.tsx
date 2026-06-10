@@ -60,8 +60,8 @@ export function PropertyTable({ properties, filters, onFiltersChange, onEdit, on
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="rounded-lg border">
-        <Table>
+      <div className="rounded-lg border overflow-x-auto">
+        <Table className="min-w-[600px]">
           <TableHeader>
             <TableRow>
               <TableHead className="w-[250px]">

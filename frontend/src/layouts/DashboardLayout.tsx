@@ -601,12 +601,10 @@ function DashboardLayout() {
       <main
         style={{
           flex: 1,
-          maxWidth: "1280px",
           width: "100%",
           margin: "0 auto",
-          padding: "48px 32px",
         }}
-        className="w-full px-4 md:px-8 py-8 md:py-12"
+        className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 md:py-8"
       >
         <Outlet />
       </main>
