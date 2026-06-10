@@ -20,6 +20,8 @@ import { DocumentCard } from "./documents/components/document-card";
 import { UploadDialog } from "./documents/components/upload-dialog";
 import { DocumentPreviewDialog } from "./documents/components/document-preview-dialog";
 import type { Document } from "@/types";
+import { apiGet } from "@/lib/api";
+import toast from "react-hot-toast";
 
 // ─── Loading Skeleton ────────────────────────────────────────────────────────
 
@@ -81,6 +83,18 @@ function DocumentsPage() {
   const handleDelete = (doc: Document) => {
     if (window.confirm(`Delete "${doc.fileName}"? This action cannot be undone.`)) {
       deleteMutation.mutate(doc.id);
+    }
+  };
+
+  const handleDownload = async (doc: Document) => {
+    try {
+      const response = await apiGet<{ url: string }>(`/documents/${doc.id}/download`);
+      if (response.url) {
+        window.open(response.url, "_blank");
+      }
+    } catch (error) {
+      console.error("Download error:", error);
+      toast.error("Failed to download document");
     }
   };
 
@@ -169,6 +183,7 @@ function DocumentsPage() {
                 <DocumentCard
                   document={doc}
                   onPreview={handlePreview}
+                  onDownload={handleDownload}
                   onDelete={handleDelete}
                 />
               </motion.div>

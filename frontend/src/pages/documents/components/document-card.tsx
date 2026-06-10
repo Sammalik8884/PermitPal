@@ -37,10 +37,11 @@ function formatFileSize(bytes: number): string {
 interface DocumentCardProps {
   document: Document;
   onPreview: (doc: Document) => void;
+  onDownload?: (doc: Document) => void;
   onDelete: (doc: Document) => void;
 }
 
-export function DocumentCard({ document, onPreview, onDelete }: DocumentCardProps) {
+export function DocumentCard({ document, onPreview, onDownload, onDelete }: DocumentCardProps) {
   const FileIcon = getFileIcon(document.fileType);
   const typeInfo = typeConfig[document.documentType] ?? typeConfig.other;
   const propertyName = getPropertyNameForDocument(document.propertyId);
@@ -75,7 +76,7 @@ export function DocumentCard({ document, onPreview, onDelete }: DocumentCardProp
       </div>
 
       {/* Actions */}
-      <div className="mt-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="mt-3 flex items-center gap-1 opacity-100">
         <Button
           variant="ghost"
           size="sm"
@@ -90,11 +91,15 @@ export function DocumentCard({ document, onPreview, onDelete }: DocumentCardProp
           size="sm"
           className="h-7 w-7 p-0"
           title="Download"
-          asChild
+          onClick={() => {
+            if (onDownload) {
+              onDownload(document);
+            } else {
+              window.open(`https://storage.example.com/${document.storageKey}`, "_blank");
+            }
+          }}
         >
-          <a href={`https://storage.example.com/${document.storageKey}`} target="_blank" rel="noopener noreferrer">
-            <Download className="h-3.5 w-3.5" />
-          </a>
+          <Download className="h-3.5 w-3.5" />
         </Button>
         <Button
           variant="ghost"
