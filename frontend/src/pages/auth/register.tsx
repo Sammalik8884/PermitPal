@@ -277,7 +277,7 @@ export default function RegisterPage() {
         </div>
 
         {/* First + Last name */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <FieldLabel htmlFor="firstName">First name</FieldLabel>
             <StyledInput
@@ -322,7 +322,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Country + Timezone */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <FieldLabel>Country</FieldLabel>
             <Select value={countryValue} onValueChange={(v) => setValue("country", v, { shouldValidate: true })}>
