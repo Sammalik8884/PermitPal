@@ -32,7 +32,7 @@ public class ExceptionMiddleware
 
     private async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        var (statusCode, message) = exception switch
+        (HttpStatusCode statusCode, string message) = exception switch
         {
             FluentValidation.ValidationException validationEx =>
                 (HttpStatusCode.BadRequest, FormatValidationErrors(validationEx)),
@@ -47,7 +47,7 @@ public class ExceptionMiddleware
             Microsoft.EntityFrameworkCore.DbUpdateException dbEx =>
                 (HttpStatusCode.BadRequest, dbEx.InnerException?.Message ?? dbEx.Message),
             _ =>
-                (HttpStatusCode.InternalServerError, ex.InnerException?.Message ?? ex.Message)
+                (HttpStatusCode.InternalServerError, exception.InnerException?.Message ?? exception.Message)
         };
 
         if (statusCode == HttpStatusCode.InternalServerError)
