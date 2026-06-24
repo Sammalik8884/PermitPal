@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import { CheckCircle2, Globe2, Bell, FileText, TrendingUp } from "lucide-react";
 import { PermitPalWordmark, PermitPalIcon } from "@/components/ui/logo";
 
@@ -29,7 +29,9 @@ function AuthLayout() {
         }}
       >
         {/* Logo */}
-        <PermitPalWordmark size={32} />
+        <Link to="/" className="inline-block transition-opacity hover:opacity-80">
+          <PermitPalWordmark size={32} />
+        </Link>
 
         {/* Middle: Hero */}
         <div>
@@ -132,7 +134,9 @@ function AuthLayout() {
           className="flex items-center gap-2 lg:hidden"
           style={{ padding: "24px" }}
         >
-          <PermitPalWordmark size={28} />
+          <Link to="/" className="inline-block transition-opacity hover:opacity-80">
+            <PermitPalWordmark size={28} />
+          </Link>
         </div>
 
         {/* Centered Form */}

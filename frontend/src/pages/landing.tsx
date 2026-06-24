@@ -3,10 +3,10 @@ import { Shield, FileText, Bell, Globe2, Clock, CheckCircle2, Star } from "lucid
 import { PermitPalWordmark } from "@/components/ui/logo";
 
 const features = [
-  { icon: FileText, title: "Permit Tracking", desc: "Track all STR permits with automated expiry alerts across multiple properties." },
-  { icon: Clock, title: "Night Cap Monitoring", desc: "Real-time tracking of nightly bookings against local caps via iCal sync." },
-  { icon: Globe2, title: "Multi-Jurisdiction", desc: "Stay compliant across EU, AU, and US regulations automatically." },
-  { icon: Bell, title: "Automated Alerts", desc: "Email, SMS, and in-app alerts for permits, night caps, and regulatory changes." },
+  { icon: FileText, title: "Avoid Permit Violations", desc: "Missing a permit renewal can trigger immediate listing suspension and daily fines. We automate your expiry alerts so you never miss a deadline." },
+  { icon: Clock, title: "Prevent Night Cap Penalties", desc: "Going one night over your local limit can flag your property for audit. Our real-time iCal sync strictly monitors your nights to keep you safe." },
+  { icon: Globe2, title: "Global Compliance Automation", desc: "Regulations are changing overnight across the US, EU, and AU. We automatically adapt your compliance tracking to local laws so you're always protected." },
+  { icon: Bell, title: "Critical Alert System", desc: "Don't get caught off-guard by a regulatory crackdown. Receive immediate SMS, email, and in-app alerts the moment your compliance status is at risk." },
 ];
 
 const plans = [
@@ -71,10 +71,10 @@ export default function LandingPage() {
       <section style={{ padding: "100px 24px", textAlign: "center", borderBottom: "1px solid #ebebeb" }}>
         <div style={{ maxWidth: "800px", margin: "0 auto" }}>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-[800] text-[#222222] tracking-[-1.5px] leading-[1.1] mb-6">
-            The all-in-one platform for short-term rental compliance.
+            Don't let a <span className="text-[#ff385c]">$10,000 fine</span> ruin your short-term rental business.
           </h1>
-          <p style={{ fontSize: "20px", color: "#6a6a6a", lineHeight: 1.5, marginBottom: "40px", maxWidth: "600px", margin: "0 auto 40px" }}>
-            Track permits, monitor night caps, and stay ahead of regulatory changes across the EU, AU, and US with PermitPal.
+          <p style={{ fontSize: "20px", color: "#6a6a6a", lineHeight: 1.5, marginBottom: "40px", maxWidth: "660px", margin: "0 auto 40px" }}>
+            Cities across the US, EU, and AU are cracking down on unregistered hosts with massive penalties. PermitPal automates your compliance, tracks night caps, and protects your revenue from sudden regulatory fines.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link to="/register" className="w-full sm:w-auto">
@@ -115,7 +115,7 @@ export default function LandingPage() {
       <section id="features" style={{ padding: "80px 24px", backgroundColor: "#f7f7f7", borderBottom: "1px solid #ebebeb" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <h2 style={{ fontSize: "32px", fontWeight: 700, color: "#222222", textAlign: "center", marginBottom: "64px" }}>
-            Everything you need to stay compliant
+            Protect your properties from sudden regulatory fines
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "32px" }}>
             {features.map((feature, idx) => (
