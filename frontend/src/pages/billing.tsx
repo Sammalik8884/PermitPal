@@ -11,8 +11,8 @@ function BillingPage() {
       />
       <EmptyState
         icon={CreditCard}
-        title="No billing information"
-        description="Your subscription plan, invoices, and payment methods will appear here once your account is activated."
+        title="For billing contact at permitpalpro@gmail.com"
+        description=""
       />
     </>
   );

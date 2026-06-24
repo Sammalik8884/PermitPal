@@ -440,26 +440,7 @@ function TopNav() {
                 />
               </>
             )}
-            <DropdownMenuItem asChild>
-              <NavLink
-                to="/settings"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "12px",
-                  padding: "10px 12px",
-                  borderRadius: "8px",
-                  fontSize: "16px",
-                  color: "#222222",
-                  cursor: "pointer",
-                  textDecoration: "none",
-                }}
-                className="hover:bg-[#f7f7f7]"
-              >
-                <Settings className="h-4 w-4 text-[#6a6a6a]" />
-                Settings
-              </NavLink>
-            </DropdownMenuItem>
+
             <DropdownMenuItem asChild>
               <NavLink
                 to="/billing"
