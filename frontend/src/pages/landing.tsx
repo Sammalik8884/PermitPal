@@ -3,10 +3,10 @@ import { Shield, FileText, Bell, Globe2, Clock, CheckCircle2, Star } from "lucid
 import { PermitPalWordmark } from "@/components/ui/logo";
 
 const features = [
-  { icon: FileText, title: "Avoid Permit Violations", desc: "Missing a permit renewal can trigger immediate listing suspension and daily fines. We automate your expiry alerts so you never miss a deadline." },
-  { icon: Clock, title: "Prevent Night Cap Penalties", desc: "Going one night over your local limit can flag your property for audit. Our real-time iCal sync strictly monitors your nights to keep you safe." },
-  { icon: Globe2, title: "Global Compliance Automation", desc: "Regulations are changing overnight across the US, EU, and AU. We automatically adapt your compliance tracking to local laws so you're always protected." },
-  { icon: Bell, title: "Critical Alert System", desc: "Don't get caught off-guard by a regulatory crackdown. Receive immediate SMS, email, and in-app alerts the moment your compliance status is at risk." },
+  { icon: FileText, title: "Avoid Permit Violations", desc: <>Missing a permit renewal can trigger immediate <strong className="text-[#c13515]">listing suspension</strong> and daily <strong className="text-[#c13515]">fines</strong>. We automate your expiry alerts so you never miss a deadline.</> },
+  { icon: Clock, title: "Prevent Night Cap Penalties", desc: <>Going one night over your local limit can flag your property for an <strong className="text-[#c13515]">audit</strong>. Our real-time iCal sync strictly monitors your nights to keep you safe.</> },
+  { icon: Globe2, title: "Global Compliance Automation", desc: <>Regulations are changing overnight across the US, EU, and AU. Don't risk <strong className="text-[#c13515]">massive penalties</strong>—we automatically adapt your tracking to local laws.</> },
+  { icon: Bell, title: "Critical Alert System", desc: <>Don't get caught off-guard by a regulatory <strong className="text-[#c13515]">crackdown</strong>. Receive immediate SMS, email, and in-app alerts the moment your compliance status is at risk.</> },
 ];
 
 const plans = [
@@ -119,12 +119,20 @@ export default function LandingPage() {
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "32px" }}>
             {features.map((feature, idx) => (
-              <div key={idx} style={{ backgroundColor: "#ffffff", padding: "32px", borderRadius: "16px", border: "1px solid #ebebeb" }}>
+              <div 
+                key={idx} 
+                className="group transition-all duration-300 hover:-translate-y-2 hover:border-[#ff385c]/30"
+                style={{ backgroundColor: "#ffffff", padding: "32px", borderRadius: "16px", border: "1px solid #ebebeb", boxShadow: "rgba(0,0,0,0.06) 0 8px 24px" }}
+              >
                 <div style={{ width: "48px", height: "48px", borderRadius: "50%", backgroundColor: "#fff0ef", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "24px" }}>
-                  <feature.icon style={{ color: "#ff385c", width: "24px", height: "24px" }} />
+                  <feature.icon className="transition-transform duration-300 group-hover:scale-110" style={{ color: "#ff385c", width: "24px", height: "24px" }} />
                 </div>
-                <h3 style={{ fontSize: "20px", fontWeight: 600, color: "#222222", marginBottom: "12px" }}>{feature.title}</h3>
-                <p style={{ fontSize: "16px", color: "#6a6a6a", lineHeight: 1.5 }}>{feature.desc}</p>
+                <h3 className="transition-colors duration-300 group-hover:text-[#ff385c]" style={{ fontSize: "20px", fontWeight: 600, color: "#222222", marginBottom: "12px" }}>
+                  {feature.title}
+                </h3>
+                <p style={{ fontSize: "16px", color: "#6a6a6a", lineHeight: 1.5 }}>
+                  {feature.desc}
+                </p>
               </div>
             ))}
           </div>
