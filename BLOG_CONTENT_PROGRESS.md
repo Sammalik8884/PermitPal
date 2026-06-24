@@ -16,11 +16,11 @@ This README tracks the progress of generating 3,000+ word SEO articles for each 
 | 8 | short term rental compliance software | short-term-rental-compliance-software | ✅ Done |
 | 9 | do you need a business license for airbnb | do-you-need-a-business-license-for-airbnb | ✅ Done |
 | 10 | vacation rental tax rules | vacation-rental-tax-rules | ✅ Done |
-| 11 | holiday rental tax | holiday-rental-tax | ⬜ Pending |
-| 12 | short term rental deductions | short-term-rental-deductions | ⬜ Pending |
-| 13 | 5 irs rules for renting out your vacation home | 5-irs-rules-for-renting-out-your-vacation-home | ⬜ Pending |
-| 14 | short term rental compliance monitoring | short-term-rental-compliance-monitoring | ⬜ Pending |
-| 15 | taxes on short term rentals | taxes-on-short-term-rentals | ⬜ Pending |
+| 11 | holiday rental tax | holiday-rental-tax | ⏳ Writing... |
+| 12 | short term rental deductions | short-term-rental-deductions | ⏳ Writing... |
+| 13 | 5 irs rules for renting out your vacation home | 5-irs-rules-for-renting-out-your-vacation-home | ⏳ Writing... |
+| 14 | short term rental compliance monitoring | short-term-rental-compliance-monitoring | ⏳ Writing... |
+| 15 | taxes on short term rentals | taxes-on-short-term-rentals | ⏳ Writing... |
 | 16 | do you need a license for airbnb | do-you-need-a-license-for-airbnb | ⬜ Pending |
 | 17 | taxes for short term rentals | taxes-for-short-term-rentals | ⬜ Pending |
 | 18 | do i need a business license to run an airbnb | do-i-need-a-business-license-to-run-an-airbnb | ⬜ Pending |
@@ -104,7 +104,7 @@ This README tracks the progress of generating 3,000+ word SEO articles for each 
 |-------|----------|--------|
 | Batch 1 | #1-5 | ✅ Complete |
 | Batch 2 | #6-10 | ✅ Complete |
-| Batch 3 | #11-15 | ⬜ Pending |
+| Batch 3 | #11-15 | ⏳ In Progress |
 | Batch 4 | #16-20 | ⬜ Pending |
 | Batch 5 | #21-25 | ⬜ Pending |
 | Batch 6 | #26-30 | ⬜ Pending |
