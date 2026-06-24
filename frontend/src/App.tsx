@@ -12,6 +12,7 @@ import { useEffect } from "react";
 
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AuthLayout from "@/layouts/AuthLayout";
+import MarketingLayout from "@/layouts/MarketingLayout";
 
 // ─── Lazy-loaded Pages ───────────────────────────────────────────────────────
 
@@ -21,12 +22,14 @@ const RegisterPage = lazy(() => import("@/pages/auth/register"));
 const ForgotPasswordPage = lazy(() => import("@/pages/auth/forgot-password"));
 const ResetPasswordPage = lazy(() => import("@/pages/auth/reset-password"));
 
-const AboutPage = lazy(() => import("@/pages/static-pages").then(m => ({ default: m.AboutPage })));
-const BlogPage = lazy(() => import("@/pages/static-pages").then(m => ({ default: m.BlogPage })));
-const CareersPage = lazy(() => import("@/pages/static-pages").then(m => ({ default: m.CareersPage })));
-const IntegrationsPage = lazy(() => import("@/pages/static-pages").then(m => ({ default: m.IntegrationsPage })));
-const PrivacyPolicyPage = lazy(() => import("@/pages/static-pages").then(m => ({ default: m.PrivacyPolicyPage })));
-const TermsOfServicePage = lazy(() => import("@/pages/static-pages").then(m => ({ default: m.TermsOfServicePage })));
+const AboutPage = lazy(() => import("@/pages/marketing/about"));
+const BlogPage = lazy(() => import("@/pages/blog/index"));
+const BlogPostPage = lazy(() => import("@/pages/blog/[slug]"));
+const CareersPage = lazy(() => import("@/pages/marketing/careers"));
+const ContactPage = lazy(() => import("@/pages/marketing/contact"));
+const IntegrationsPage = lazy(() => import("@/pages/marketing/integrations"));
+const PrivacyPolicyPage = lazy(() => import("@/pages/marketing/privacy"));
+const TermsOfServicePage = lazy(() => import("@/pages/marketing/terms"));
 
 const DashboardPage = lazy(() => import("@/pages/dashboard"));
 const PropertiesPage = lazy(() => import("@/pages/properties/index"));
@@ -110,16 +113,18 @@ function App() {
           <BrowserRouter>
             <Suspense fallback={<PageLoader />}>
               <Routes>
-                {/* Landing Page — Public (redirects to dashboard if authenticated) */}
-                <Route path="/" element={<LandingRoute />} />
-
-                {/* Static Pages — Public */}
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/blog" element={<BlogPage />} />
-                <Route path="/careers" element={<CareersPage />} />
-                <Route path="/integrations" element={<IntegrationsPage />} />
-                <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-                <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+                {/* Marketing / Public Routes */}
+                <Route element={<MarketingLayout />}>
+                  <Route path="/" element={<LandingRoute />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/blog" element={<BlogPage />} />
+                  <Route path="/blog/:slug" element={<BlogPostPage />} />
+                  <Route path="/careers" element={<CareersPage />} />
+                  <Route path="/contact" element={<ContactPage />} />
+                  <Route path="/integrations" element={<IntegrationsPage />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                  <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+                </Route>
 
                 {/* Auth Routes — Public Only */}
                 <Route
