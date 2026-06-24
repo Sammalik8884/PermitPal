@@ -245,10 +245,12 @@ public class AuthService : IAuthService
 
     private static string GenerateSlug(string name)
     {
-        return name.ToLowerInvariant()
+        var slug = name.ToLowerInvariant()
             .Replace(" ", "-")
             .Replace("'", "")
             .Replace("\"", "");
+            
+        return $"{slug}-{Guid.NewGuid().ToString("N")[..6]}";
     }
 
     private static UserDto MapToUserDto(User user, Organisation organisation)

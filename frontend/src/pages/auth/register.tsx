@@ -6,6 +6,7 @@ import { Eye, EyeOff, AlertCircle, Check, Globe, Clock, User, Building2, Mail, L
 import { PasswordStrength } from "@/components/password-strength";
 import { useAuthStore } from "@/stores/auth-store";
 import { registerSchema, type RegisterFormData } from "@/lib/validations/auth";
+import { extractApiError } from "@/lib/api";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
@@ -215,7 +216,7 @@ export default function RegisterPage() {
       });
       navigate("/dashboard", { replace: true });
     } catch (err: unknown) {
-      setApiError(err instanceof Error ? err.message : "Registration failed. Please try again.");
+      setApiError(extractApiError(err));
     }
   };
 

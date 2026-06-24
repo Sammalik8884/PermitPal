@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, AlertCircle, Mail, Lock } from "lucide-react";
 import { useAuthStore } from "@/stores/auth-store";
 import { loginSchema, type LoginFormData } from "@/lib/validations/auth";
+import { extractApiError } from "@/lib/api";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function LoginPage() {
       if (rememberMe) localStorage.setItem("permitpal_remember_me", "true");
       navigate("/dashboard", { replace: true });
     } catch (err: unknown) {
-      setApiError(err instanceof Error ? err.message : "Invalid email or password");
+      setApiError(extractApiError(err));
     }
   };
 

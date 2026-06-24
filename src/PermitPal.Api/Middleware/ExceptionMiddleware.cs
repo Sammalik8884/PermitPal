@@ -44,8 +44,10 @@ public class ExceptionMiddleware
                 (HttpStatusCode.BadRequest, argEx.Message),
             InvalidOperationException invEx =>
                 (HttpStatusCode.BadRequest, invEx.Message),
+            Microsoft.EntityFrameworkCore.DbUpdateException dbEx =>
+                (HttpStatusCode.BadRequest, dbEx.InnerException?.Message ?? dbEx.Message),
             _ =>
-                (HttpStatusCode.InternalServerError, "An unexpected error occurred.")
+                (HttpStatusCode.InternalServerError, ex.InnerException?.Message ?? ex.Message)
         };
 
         if (statusCode == HttpStatusCode.InternalServerError)
